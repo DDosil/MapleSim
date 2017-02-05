@@ -1,0 +1,2 @@
+# MapleSim
+Maplestory Status Simulator
