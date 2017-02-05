@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>메이플스토리 스탯 시뮬레이터</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+		integrity="sha384-pdapHxIh7EYuwy6K7iE41uXVxGCXY0sAjBzaElYGJUrzwodck3Lx6IE2lA0rFREo"
+		crossorigin="anonymous"></link>
+	<link rel="stylesheet" href="index.css"></link>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"
+		integrity="sha384-R4/ztc4ZlRqWjqIuvf6RX5yb/v90qNGx6fS48N0tRxiGkqveZETq72KgDVJCp2TC"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+		integrity="sha384-pPttEvTHTuUJ9L2kCoMnNqCRcaMPMVMsWVO+RLaaaYDmfSP5//dP6eKRusbPcqhZ" 
+		crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="main.css" type="text/css">
+	<meta name="autocomplete" content="off"/>
+</head>
+<body>
+
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" data-toggle="modal" data-target="#myModal">스공시뮬 KMS v1.2.271</a>
+				</div>
+				<div class="collapse navbar-collapse" id="nav-collapsible">
+					<ul class="nav navbar-nav">
+						<li><a href="#main" id="defaultClick">메인</a></li>
+						<li><a href="#jobs">내 직업</a></li>
+						<li><a href="#status">내 스탯</a></li>
+						<li><a href="#item">내 아이템</a></li>
+						<li><a href="#vmatrix">V 매트릭스</a></li>
+						<li><a href="#union">메이플 유니온</a></li>
+						<li><a href="#report">DPM 정보</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+		</button>
+        <h4 class="modal-title" id="myModalLabel">Modal 제목</h4>
+		</div>
+		<div class="modal-body">
+		Modal 내용
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		</div>
+		</div>
+		</div>
+		</div>
+		
+		<script>
+		document.getElementById("defaultClick").click();
+		</script>
+		
+        <div class="container">
+		<div class="tab_item" id="main">
+		<h2 class="page-header">뭐하는 사이트인가요?</h2>
+		<p>내 직업이나 남의 직업으로 템 세팅을 해보자.<br>
+		보스 최소컷 기준과 내 스펙을 비교해보자.</p>
+		</div>
+		<div class="tab_item" id="jobs">
+			<h2 class="page-header">직업을 선택해 주쉽시요</h2><br>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>전사</th>
+						<th>마법사</th>
+						<th>궁수</th>
+						<th>도적</th>
+						<th>해적</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td rowspan="3">모험가</td>
+						<td><button type="button" class="btn btn-primary" name="hero">히어로</button></td>
+						<td><button type="button" class="btn btn-primary" name="arcmagefire">아크메이지(불,독)</button></td>
+						<td><button type="button" class="btn btn-primary" name="bowmaster">보우마스터</button></td>
+						<td><button type="button" class="btn btn-primary" name="nightlord">나이트로드</button></td>
+						<td><button type="button" class="btn btn-primary" name="viper">바이퍼</button></td>
+					</tr>
+					<tr>
+						<td><button type="button" class="btn btn-primary" name="paladin">팔라딘</button></td>
+						<td><button type="button" class="btn btn-primary" name="arcmagecold">아크메이지(썬,콜)</button></td>
+						<td><button type="button" class="btn btn-primary" name="marksman">신궁</button></td>
+						<td><button type="button" class="btn btn-primary" name="shadower">섀도어</button></td>
+						<td><button type="button" class="btn btn-primary" name="captain">캡틴</button></td>
+					</tr>
+					<tr>
+						<td><button type="button" class="btn btn-primary" name="darkknight">다크나이트</button></td>
+						<td><button type="button" class="btn btn-primary" name="bishop">비숍</button></td>
+						<td></td>
+						<td><button type="button" class="btn btn-primary" name="duelblade">듀얼블레이드</button></td>
+						<td><button type="button" class="btn btn-primary" name="cannonshootter">캐논슈터</button></td>
+					</tr>
+					<tr>
+						<td rowspan="2">시그너스 기사단</td>
+						<td><button type="button" class="btn btn-primary" name="soulmaster">소울마스터</button></td>
+						<td rowspan="2"><button type="button" class="btn btn-primary" name="flamewizard">플레임위자드</button></td>
+						<td rowspan="2"><button type="button" class="btn btn-primary" name="windbreaker">윈드브레이커</button></td>
+						<td rowspan="2"><button type="button" class="btn btn-primary" name="nightwalker">나이트워커</button></td>
+						<td rowspan="2"><button type="button" class="btn btn-primary" name="striker">스트라이커</button></td>
+					</tr>
+					<tr>
+						<td><button type="button" class="btn btn-primary" name="michael">미하일</button></td>
+					</tr>
+					<tr>
+						<td rowspan="2">영웅</td>
+						<td rowspan="2"><button type="button" class="btn btn-primary" name="aran">아란</button></td>
+						<td><button type="button" class="btn btn-primary" name="evan">에반</button></td>
+						<td rowspan="2"><button type="button" class="btn btn-primary" name="mercedes">메르세데스</button></td>
+						<td rowspan="2"><button type="button" class="btn btn-primary" name="phantom">팬텀</button></td>
+						<td rowspan="2"><button type="button" class="btn btn-primary" name="shade">은월</button></td>
+					</tr>
+					<tr>
+						<td><button type="button" class="btn btn-primary" name="luminous">루미너스</button></td>
+					</tr>
+					<tr>
+						<td rowspan="3">레지스탕스</td>
+						<td><button type="button" class="btn btn-primary" name="blaster">블래스터</button></td>
+						<td rowspan="3"><button type="button" class="btn btn-primary" name="battlemage">배틀메이지</button></td>
+						<td rowspan="3"><button type="button" class="btn btn-primary" name="wildhunter">와일드헌터</button></td>
+						<td></td>
+						<td><button type="button" class="btn btn-primary" name="mechanic">메카닉</button></td>
+					</tr>
+					<tr>
+						<td><button type="button" class="btn btn-primary" name="demonslayer">데몬슬레이어</button></td>
+						<td rowspan="2" colspan="2"><button type="button" class="btn btn-primary" name="xenon">제논</button></td>
+					</tr>
+					<tr>
+						<td><button type="button" class="btn btn-primary" name="demonavenger">데몬어벤져</button></td>
+					</tr>
+					<tr>
+						<td>노바</td>
+						<td><button type="button" class="btn btn-primary" name="kaiser">카이저</button></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><button type="button" class="btn btn-primary" name="angelicbuster">엔젤릭버스터</button></td>
+					</tr>
+					<tr>
+						<td>신의 아이</td>
+						<td><button type="button" class="btn btn-primary" name="zero">제로</button></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>타고난 천재 영웅</td>
+						<td></td>
+						<td><button type="button" class="btn btn-primary" name="kinesys">키네시스</button></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			
+		</div>
+        <div class="tab_item" id="status">
+            기초스탯<br>
+			<form name="basestat">
+			주스탯 : <input type="text" name="mainstat" value="40"><br>
+			부스탯 : <input type="text" name="substat" value="4"><br>
+			공 : <input type="text" name="att" value="15"><br>
+			</form>
+        </div>
+        <div class="tab_item" id="item">
+            스공뻥요소<br>
+			<form name="mult">
+			공퍼(% 단위, 30%라면 30) : <input type="text" name="att" value="0"><br>
+			주스탯퍼(%단위, 200%라면 200) : <input type="text" name="mainstat" value="0"><br>
+			부스탯퍼(%단위, 200%라면 200) : <input type="text" name="substat" value="0"><br>
+			올스탯퍼(%단위, 200%라면 200) : <input type="text" name="allstat" value="0"><br>
+			</form>
+        </div>
+		<div class="tab_item" id="vmatrix">
+		안뇽 난 때미얌~~~ 요긴 아직 준비가 않됫서
+		</div>
+		<div class="tab_item" id="union">
+			고정스탯<br>
+			<form name="fixed">
+			고정공 : <input type="text" name="att" value="0"><br>
+			고정주스탯 : <input type="text" name="mainstat" value="0"><br>
+			고정주스탯 : <input type="text" name="substat" value="0"><br>
+			</form>
+		</div>
+		<div class="tab_item" id="report">
+			내 스공은 올마??
+			<form name="reports">
+			스탯계수 : <input type="text" name="totalstat" value="0"><br>
+			공격력합 : <input type="text" name="totalatt" value="0">
+			</form>
+		</div>
+		
+		<nav class="navbar navbar-fixed-bottom">
+			<div class="container">
+				<div class="collapse navbar-collapse" id="nav-collapsible">
+					<form name="attReport">
+					지금 내 스공 : <input type="text" name="result" value="0" readonly>
+					</form>
+				</div>
+			</div>
+		</nav>
+	</div>
+	
+	<script src="main.js" type="text/javascript"></script>
+</body>
+</html>
