@@ -33,29 +33,29 @@
 		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//캡틴
 		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//바이퍼
 		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//캐논
-		,//소마
-		,//미하일15
-		,//플위
-		,//윈브
-		,//나워
-		,//스커
-		,//아란20
-		,//에반
-		,//루미
-		,//매르
-		,//팬텀
-		,//은월25
-		,//블래
-		,//데슬
+		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//소마
+		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//미하일15
+		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//플위
+		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//윈브
+		[40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//나워
+		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//스커
+		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//아란20
+		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//에반
+		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//루미
+		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//매르
+		[40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//팬텀
+		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//은월25
+		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//블래
+		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//데슬
 		[50, 600, 0, 0, 0, 0, 40, 0, 0, 0, 0, 90, 0.9, 0, 40, 25],//데벤
-		,//배메
-		,//와헌30
+		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//배메
+		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//와헌30
 		[60, 1000, 30, 30, 0, 30, 60, 20, 20, 0, 20, 80, 0.9, 0, 40, 0],//제논
-		,//메카닉
-		,//카이저
-		,//킹젤릭갓스터
-		,//제로35
-		,//키네시수
+		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//메카닉
+		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//카이저
+		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//킹젤릭갓스터
+		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//제로35
+		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//키네시수
 		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0]//초보자37
 		];
 		
@@ -161,6 +161,8 @@
 			Mystat.jobcode = jc;//직업코드 변경
 			Mystat.statcode = jobtable_adv[jc][0];
 			document.jobname.jobname.value = jobtable_name[jc];//직업 탭의 내 직업 변경
+			document.basestat.lev.value = 10;
+			document.basestat.stat1.value = 4;//스탯, 레벨수치 초기화
 			var a = '<p style="font-weight:bolder">현재 직업은 ' + jobtable_name[jc] + "입니다.</p>";
 			var b = "";
 			switch(jobtable_adv[jc][0]){
@@ -203,7 +205,8 @@
 				break;
 				case 60:
 				a +="<p>주 스탯 : STR, DEX, LUK</p>";
-				a +="<p>현재 제작중입니다.</p>";
+				a +="<p>192레벨 이하에서의 분배 방식은 현재 개발중입니다.</p>";
+				a +="<p>현재 럭 제논 기준으로 스탯을 산출하고 있으며, 다른 스탯을 사용하는 분배 방식은 현재 개발중입니다.</p>";
 				document.getElementById("myjob").innerHTML = a;
 				document.getElementById("stathead1").innerHTML="STR";
 				document.getElementById("stathead2").innerHTML="DEX";
@@ -240,7 +243,7 @@
 			
 		}
 			
-
+/*통합중
 		//키 입력시 갱신
 		document.onkeyup = function (){
 				//기본 스탯 파싱
@@ -278,7 +281,7 @@
 				document.reports.totalstat.value = Mystat.statvalue();
 				document.reports.totalatt.value = Mystat.totalatt();
 			};
-
+*/
 	
 //레벨에 따른 스탯연산(데벤, 제논 제외)
 function calclevelstat(stat){
@@ -298,13 +301,80 @@ function calclevelstat(stat){
 			break;
 			case(60)://제논
 			if(document.basestat.lev.value<=99 && document.basestat.lev.value>=60){//3차전직 상태
-				document.basestat.stat1.value = (document.basestat.lev.value*5)+13;
+				var statcon=document.basestat.lev.value*5;
+				switch(statcon % 3){
+					case 0:
+					document.basestat.stat1.value = 7+parseInt(statcon/3);
+					document.basestat.stat2.value = 7+parseInt(statcon/3);
+					document.basestat.stat3.value = 7+parseInt(statcon/3);
+					break;
+					case 1:
+					document.basestat.stat1.value = 7+parseInt(statcon/3);
+					document.basestat.stat2.value = 7+parseInt(statcon/3);
+					document.basestat.stat3.value = 8+parseInt(statcon/3);
+					break;
+					case 2:
+					document.basestat.stat1.value = 7+parseInt(statcon/3);
+					document.basestat.stat2.value = 8+parseInt(statcon/3);
+					document.basestat.stat3.value = 8+parseInt(statcon/3);
+					break;
+					default:
+					alert("오루가 떳내요?? 재논은 좀 복잡해서 오류 뜰수도 잇음");
+					break;
+				}
 			}
 			else if(document.basestat.lev.value<=59){//3차 이전
-				document.basestat.stat1.value = (document.basestat.lev.value*5)+8;
+				var statcon=document.basestat.lev.value*5;
+				switch(statcon % 3){
+					case 0:
+					document.basestat.stat1.value = 5+parseInt(statcon/3);
+					document.basestat.stat2.value = 5+parseInt(statcon/3);
+					document.basestat.stat3.value = 6+parseInt(statcon/3);
+					break;
+					case 1:
+					document.basestat.stat1.value = 5+parseInt(statcon/3);
+					document.basestat.stat2.value = 6+parseInt(statcon/3);
+					document.basestat.stat3.value = 6+parseInt(statcon/3);
+					break;
+					case 2:
+					document.basestat.stat1.value = 6+parseInt(statcon/3);
+					document.basestat.stat2.value = 6+parseInt(statcon/3);
+					document.basestat.stat3.value = 6+parseInt(statcon/3);
+					break;
+					default:
+					alert("오루가 떳내요?? 재논은 좀 복잡해서 오류 뜰수도 잇음");
+					break;
+				}
+				
 			}
-			else {//4차 이후
-				document.basestat.stat1.value = (document.basestat.lev.value*5)+18;
+			else if(document.basestat.lev.value<=193 && document.basestat.lev.value>=100){//193렙, 멀티래터럴 VI 이전
+				var statcon=document.basestat.lev.value*5;
+				switch(statcon % 3){
+					case 0:
+					document.basestat.stat1.value = 8+parseInt(statcon/3);
+					document.basestat.stat2.value = 9+parseInt(statcon/3);
+					document.basestat.stat3.value = 9+parseInt(statcon/3);
+					break;
+					case 1:
+					document.basestat.stat1.value = 9+parseInt(statcon/3);
+					document.basestat.stat2.value = 9+parseInt(statcon/3);
+					document.basestat.stat3.value = 9+parseInt(statcon/3);
+					break;
+					case 2:
+					document.basestat.stat1.value = 9+parseInt(statcon/3);
+					document.basestat.stat2.value = 9+parseInt(statcon/3);
+					document.basestat.stat3.value = 10+parseInt(statcon/3);
+					break;
+					default:
+					alert("오루가 떳내요?? 재논은 좀 복잡해서 오류 뜰수도 잇음");
+					break;
+				}
+			}
+			else {//194렙부터, 멀티래터럴 VI 이후
+				var statcon = (statcon=document.basestat.lev.value-193)*5;
+				document.basestat.stat1.value = 330;
+				document.basestat.stat2.value = 330;
+				document.basestat.stat3.value = 331+statcon;
 			}
 			break;
 			default://나머지
