@@ -285,7 +285,7 @@
 	
 //레벨에 따른 스탯연산(데벤, 제논 제외)
 function calclevelstat(stat){
-	if(document.basestat.lev.value<=250 && document.basestat.lev.value>=1){
+	if(document.basestat.lev.value<=250 && document.basestat.lev.value>=0){
 		//보너스 스탯 고려
 		switch(stat.statcode){
 			case(50)://데벤
