@@ -24,17 +24,15 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" data-toggle="modal" data-target="#myModal">스공시뮬 KMS v1.2.271</a>
 				</div>
-				<div class="collapse navbar-collapse" id="nav-collapsible">
-					<ul class="nav navbar-nav">
-						<li><a href="#main" id="defaultClick">메인</a></li>
-						<li><a href="#jobs">내 직업</a></li>
-						<li><a href="#status">내 스탯</a></li>
-						<li><a href="#equip">내 아이템</a></li>
-						<li><a href="#vmatrix">V 매트릭스</a></li>
-						<li><a href="#union">메이플 유니온</a></li>
-						<li><a href="#report">DPM 정보</a></li>
-					</ul>
-				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="#main" id="defaultClick">메인</a></li>
+					<li><a href="#jobs">내 직업</a></li>
+					<li><a href="#status">내 스탯</a></li>
+					<li><a href="#equip">내 아이템</a></li>
+					<li><a href="#vmatrix">V 매트릭스</a></li>
+					<li><a href="#union">메이플 유니온</a></li>
+					<li><a href="#report">DPM 정보</a></li>
+				</ul>
 			</div>
 		</nav>
 		
@@ -174,16 +172,30 @@
 			레벨 : <input type="number" name="lev" autocomplete="off" onkeyup="calclevelstat();" value="200"><br>
 			<script>
 			function calclevelstat(){
-				if(1){
-				document.basestat.mainstat.value = (document.basestat.lev.value*5)+18;
+				if(document.basestat.lev.value<=250 && document.basestat.lev.value>0){
+					document.basestat.mainstat.value = (document.basestat.lev.value*5)+18;
+					if(document.basestat.lev.value>=140){
+						//showHyper();
+					}
+					else {
+						//hideHyper();
+					}
+				}
+				else
+				{
+				alert("1에서 250 사이의 레벨을 입력해 주세요");
+				document.basestat.lev.value = 200;
+				document.basestat.mainstat.value = 1018;
 				}
 			}
 			</script>
 			순 주스탯 : <input type="number" name="mainstat" autocomplete="off" value="1018" readonly><br>
 			순 부스탯 : <input type="number" name="substat" autocomplete="off" value="4" readonly><br>
-			<h3>하이퍼 스탯</h3><br>
-			
 			</form>
+			<h3>하이퍼 스탯</h3><br>
+			<div id="hyperstat">
+			<p>하이퍼 스탯은 레벨 140 이상에서 습득 가능합니다.</p>
+			</div>
         </div>
         <div class="tab_item" id="equip">
             <h2>아이템으로 인해 올라가는 스탯들을 다룹니다.</h2><br>
