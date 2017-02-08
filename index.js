@@ -16,23 +16,23 @@
 		"카이저", "엔젤릭버스터", "제로", "키네시스"
 		];
 		
-		//직업별 스탯 테이블, 상시 적용만 반영
-		//순서대로 스탯코드, 피, 힘, 덱, 인, 럭, 피퍼, 힘퍼, 덱퍼, 인퍼, 럭퍼, 공격력/마력, 숙련도, 공%, 뎀%, 최종뎀%
+		//직업별 스탯 테이블, 완전한 패시브만 반영
+		//스탯코드, 피, 힘, 덱, 인, 럭, 피퍼, 힘퍼, 덱퍼, 인퍼, 럭퍼, 공격력/마력, 숙련도, 공%, 뎀%, 최종뎀%, 방무, 보공, 크리
 		var jobtable_adv =[
-		[10, 0, 30, 30, 0, 0, 20, 0, 0, 0, 0, 80, 0.9, 0, 0, 120],//히어로0
+		[10, 0, 30, 30, 0, 0, 20, 0, 0, 0, 0, 30, 0.9, 0, 0, 0, 50, 0, 25],//히어로0
 		[10, 0, 30, 30, 0, 0, 20, 0, 0, 0, 0, 110, 0.9, 0, 57, 42],//팔라딘1
-		,//다크나이트
-		,//불독
-		,//선골
-		,//비숍5
-		,//보우마스터
-		,//신궁
-		,//나로
-		,//섀도어
-		,//듀블10
-		,//캡틴
-		,//바이퍼
-		,//캐논
+		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//다크나이트
+		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//불독
+		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//선골
+		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//비숍5
+		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//보우마스터
+		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//신궁
+		[40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//나로
+		[40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//섀도어
+		[40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//듀블10
+		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//캡틴
+		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//바이퍼
+		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//캐논
 		,//소마
 		,//미하일15
 		,//플위
@@ -65,6 +65,7 @@
 			12렙 순피 1205
 			->레벨당 15 상승.
 			*/
+			/*10레벨 스탯투자 피 1520, 피 
 			
 			/*스탯의 종류
 			최종데미지%	데미지%	공격력%
@@ -98,6 +99,9 @@
 			this.mastery = 0.2;//숙련도
 			this.finaldam;//최종뎀
 			this.totaldam;//총뎀
+			this.bossdam;//보공
+			this.crit;//크리티컬
+			this.critdam;//크리뎀
 			
 			this.totalatt = function(){
 				return (this.att*(1+(this.attmult/100)) + this.fixedatt);
@@ -130,7 +134,7 @@
 					+ (this.stat[2]*(1+(this.statmult[2]/100)))*3.5
 					+ (this.stat[4]*(1+(this.statmult[4]/100)))*3.5);
 					break;
-					default: alert("행님 이거 오류인대요??;;");
+					default: alert("행님 이거 오류인대요??;; 주작자제하자 제발??");
 					break;
 				}
 			};//스탯퍼 적용된 스탯 계산
@@ -155,32 +159,55 @@
 		function selectjob(jc){//input : 직업코드
 			
 			Mystat.jobcode = jc;//직업코드 변경
+			Mystat.statcode = jobtable_adv[jc][0];
 			document.jobname.jobname.value = jobtable_name[jc];//직업 탭의 내 직업 변경
-			var a = "<p>현재 직업은 " + jobtable_name[jc] + "입니다.</p>";
+			var a = '<p style="font-weight:bolder">현재 직업은 ' + jobtable_name[jc] + "입니다.</p>";
+			var b = "";
 			switch(jobtable_adv[jc][0]){
 				case 10:
-				a +="<p>주 스탯 : STR, 부 스탯: DEX</p>";
+				a +='<p style="font-weight:bolder">주 스탯 : STR, 부 스탯: DEX</p>';
 				document.getElementById("myjob").innerHTML = a;
+				document.getElementById("stathead1").innerHTML="STR";
+				document.getElementById("stathead2").innerHTML="DEX";
+				document.getElementById("stathead3").innerHTML="얘는 제논이 씁니다";
 				break;
 				case 20:
-				a +="<p>주 스탯 : DEX, 부 스탯: STR</p><br>";
+				a +="<p>주 스탯 : DEX, 부 스탯: STR</p>";
 				document.getElementById("myjob").innerHTML = a;
+				document.getElementById("stathead1").innerHTML="DEX";
+				document.getElementById("stathead2").innerHTML="STR";
+				document.getElementById("stathead3").innerHTML="얘는 제논이 씁니다";
 				break;
 				case 30:
-				a +="<p>주 스탯 : INT, 부 스탯: LUK</p><br>";
+				a +="<p>주 스탯 : INT, 부 스탯: LUK</p>";
 				document.getElementById("myjob").innerHTML = a;
+				document.getElementById("stathead1").innerHTML="INT";
+				document.getElementById("stathead2").innerHTML="LUK";
+				document.getElementById("stathead3").innerHTML="얘는 제논이 씁니다";
 				break;
 				case 40:
-				a +="<p>주 스탯 : LUK, 부 스탯: DEX</p><br>";
+				a +="<p>주 스탯 : LUK, 부 스탯: DEX</p>";
 				document.getElementById("myjob").innerHTML = a;
+				document.getElementById("stathead1").innerHTML="LUK";
+				document.getElementById("stathead2").innerHTML="DEX";
+				document.getElementById("stathead3").innerHTML="얘는 제논이 씁니다";
 				break;
 				case 50:
-				a +="<p>주 스탯 : HP, 부 스탯: STR</p><br>";
+				a +="<p>주 스탯 : HP, 부 스탯: STR</p>";
+				a +="<p>주의 : 실제 게임에서의 수치와 맞지 않을 수 있습니다. 정확한 데이터를 수집하고 있습니다.</p>";
+				a +="<p>현재 카리스마로 상승하는 HP를 템피로 계산하여 순피에 포함하지 않고 있습니다.</p>";
 				document.getElementById("myjob").innerHTML = a;
+				document.getElementById("stathead1").innerHTML="HP";
+				document.getElementById("stathead2").innerHTML="STR";
+				document.getElementById("stathead3").innerHTML="얘는 제논이 씁니다";
 				break;
 				case 60:
-				a +="<p>주 스탯 : STR, DEX, LUK</p><br>";
+				a +="<p>주 스탯 : STR, DEX, LUK</p>";
+				a +="<p>현재 제작중입니다.</p>";
 				document.getElementById("myjob").innerHTML = a;
+				document.getElementById("stathead1").innerHTML="STR";
+				document.getElementById("stathead2").innerHTML="DEX";
+				document.getElementById("stathead3").innerHTML="LUK";
 				break;
 				default:
 				break;
@@ -254,17 +281,42 @@
 
 	
 //레벨에 따른 스탯연산(데벤, 제논 제외)
-function calclevelstat(){
+function calclevelstat(stat){
 	if(document.basestat.lev.value<=250 && document.basestat.lev.value>=1){
 		//보너스 스탯 고려
-		if(document.basestat.lev.value<=99 && document.basestat.lev.value>=60){//3차전직 상태
-			document.basestat.mainstat.value = (document.basestat.lev.value*5)+13;
-		}
-		else if(document.basestat.lev.value<=59){//3차 이전
-			document.basestat.mainstat.value = (document.basestat.lev.value*5)+8;
-		}
-		else {//4차 이후
-			document.basestat.mainstat.value = (document.basestat.lev.value*5)+18;
+		switch(stat.statcode){
+			case(50)://데벤
+			if(document.basestat.lev.value<=99 && document.basestat.lev.value>=60){//3차전직 상태
+				document.basestat.stat1.value = (document.basestat.lev.value*90)+495;
+			}
+			else if(document.basestat.lev.value<=59){//3차 이전
+				document.basestat.stat1.value = (document.basestat.lev.value*90)+420;
+			}
+			else {//4차 이후
+				document.basestat.stat1.value = (document.basestat.lev.value*90)+570;
+			}
+			break;
+			case(60)://제논
+			if(document.basestat.lev.value<=99 && document.basestat.lev.value>=60){//3차전직 상태
+				document.basestat.stat1.value = (document.basestat.lev.value*5)+13;
+			}
+			else if(document.basestat.lev.value<=59){//3차 이전
+				document.basestat.stat1.value = (document.basestat.lev.value*5)+8;
+			}
+			else {//4차 이후
+				document.basestat.stat1.value = (document.basestat.lev.value*5)+18;
+			}
+			break;
+			default://나머지
+			if(document.basestat.lev.value<=99 && document.basestat.lev.value>=60){//3차전직 상태
+				document.basestat.stat1.value = (document.basestat.lev.value*5)+13;
+			}
+			else if(document.basestat.lev.value<=59){//3차 이전
+				document.basestat.stat1.value = (document.basestat.lev.value*5)+8;
+			}
+			else {//4차 이후
+				document.basestat.stat1.value = (document.basestat.lev.value*5)+18;
+			}
 		}
 			
 		if(document.basestat.lev.value>=140){
@@ -277,8 +329,8 @@ function calclevelstat(){
 	}
 	else {
 		alert("1에서 250 사이의 레벨을 입력해 주세요");
-		document.basestat.lev.value = 200;
-		document.basestat.mainstat.value = 1018;
+		document.basestat.lev.value = 10;
+		document.basestat.stat1.value = 4;
 	}
 }
 

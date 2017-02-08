@@ -51,7 +51,6 @@
 		<p>순두킹@크로아가 만들었음</p>
 		<p>음식에 되도록이면 소스를 뿌리지 않는 걸 좋아함</p>
 		<p>너무 꼬1치꼬1치 캐묻다간 경찰서!!!!!에 갈 수 있으니 조심하자</p>
-		<a href=http://blog.naver.com/skeldk2>http://blog.naver.com/skeldk2</a>
 		</div>
 		<div class="modal-footer">
 		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -176,11 +175,30 @@
 		</div>
         <div class="tab_item" id="status">
             <h2>레벨 업으로 얻는 스탯을 다룹니다.</h2><br>
-			<div id="myjob"></div>
+			<div id="myjob">
+			<p>현재 직업은 초보자입니다. <br>
+			직업 탭에서 직업을 선택해 주세요.</p>
+			</div>
 			<form name="basestat">
-			레벨 : <input type="number" name="lev" autocomplete="off" onkeyup="calclevelstat(Mystat);" value="200"><br>
-			순 주스탯 : <input type="number" name="mainstat" autocomplete="off" value="1018" readonly><br>
-			순 부스탯 : <input type="number" name="substat" autocomplete="off" value="4" readonly><br>
+			<p>레벨 : <input type="number" name="lev" autocomplete="off" onkeyup="calclevelstat(Mystat);" value="10"></p>
+			<h4 style="font-weight:bolder">아이템 옵션을 제외한 순수 스탯만을 표시합니다.</h4>
+			<table class="table">
+				<thead>
+					<tr>
+						<th id="stathead1">STR</th>
+						<th id="stathead2">DEX</th>
+						<th id="stathead3">얘는 제논이 씁니다</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="number" name="stat1" autocomplete="off" value="4" readonly></td>
+						<td><input type="number" name="stat2" autocomplete="off" value="4" readonly></td>
+						<td><input type="number" name="stat3" autocomplete="off" readonly></td>
+					</tr>
+				</tbody>
+			</table>
+			
 			</form>
 			<h3>하이퍼 스탯</h3><br>
 			<div id="hyperstat">
