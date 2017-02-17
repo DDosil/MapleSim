@@ -19,7 +19,7 @@
 </head>
 <body>
 		
-		<nav class="navbar navbar-inverse navbar-fixed-top">
+		<nav class="navbar navbar-inverse navbar-static-top">
 			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand" data-toggle="modal" data-target="#myModal">스공시뮬 KMS v1.2.271</a>
@@ -63,13 +63,19 @@
 		document.getElementById("defaultClick").click();
 		</script>
 		
-        <div class="container">
+		<div class="container">
 		<div class="tab_item" id="main">
 		<h2 class="page-header">뭐하는 사이트인가요?</h2>
-		<p>주작 없는 클린한 DPM 계산기<br>
-		내 스공을 계산하고 데미지가 얼마나 뜰지 계산해보자.</p>
+		<p>메이플스토리의 스공 시뮬레이터입니다.<br>
+		내 캐릭터의 정보를 입력하고, 템셋을 바꿨을 때 얼마나 강해질지를 수치화해서 볼 수 있습니다.</p>
+		<h2 class="page-header">어떻게 사용하나요?</h2>
+		<p>모든 탭에서 자기 캐릭터의 정보를 잘 넣어주고 DPM 정보 탭을 누르시면 스공과 DPM 정보를 보실 수 있습니다.</p>
 		</div>
+		</div>
+		
+		
 		<div class="tab_item" id="jobs">
+		<div class="container">
 			<h3>내 직업을 골라보자</h3>
 			<form name="jobname">
 			<p>현재 선택한 직업 : <input type="text" name="jobname" value="초보자" readonly><br>
@@ -164,18 +170,19 @@
 					<tr>
 						<td>타고난 천재 영웅</td>
 						<td></td>
-						<td><button onclick="selectjob(36);" type="button" class="btn btn-default" name="kinesys">키네시스</button></td>
+						<td><button onclick="selectjob(37);" type="button" class="btn btn-default" name="kinesys">키네시스</button></td>
 						<td></td>
 						<td></td>
 						<td></td>
 					</tr>
 				</tbody>
 			</table>
-			
+		</div>
 		</div>
         <div class="tab_item" id="status">
+		<div class="container">
             <h2>레벨 업으로 얻는 스탯을 다룹니다.</h2><br>
-			<div id="myjob">
+			<div id="myjob01">
 			<p>현재 직업은 초보자입니다. <br>
 			직업 탭에서 직업을 선택해 주세요.</p>
 			</div>
@@ -202,19 +209,80 @@
 			</form>
 			<h3>하이퍼 스탯</h3><br>
 			<div id="hyperstat">
-			<p>여긴 아직 준비가 않댄 대수</p>
-			<p>대신 세레브한 들참피를 드리겠습니다</p>
-			<img src=champ.png>
+			<p>하이퍼 스탯은 레벨 140 이상에서 습득 가능합니다.</p>
 			</div>
+			<h3>어빌리티</h3><br>
+			<div id="ability">
+			<form name="ability">
+				<p>여긴 아직 준비가 않댄 대수</p>
+				<p>대신 세레브한 들참피를 드리겠습니다</p>
+				<img src=champ.png>
+			</form>
+			</div>
+		</div>
         </div>
 		<div class="tab_item" id="buff">
+		<div class="container">
 			<h2>버프 스킬들 / 도핑 물약류를 다룹니다.</h2><br>
+			<div id="myjob02">
+			<p>현재 직업은 초보자입니다. <br>
+			직업 탭에서 직업을 선택해 주세요.</p>
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>HP</th>
+						<th>STR</th>
+						<th>DEX</th>
+						<th>INT</th>
+						<th>LUK</th>
+						<th>공격력/마력</th>
+						<th>숙련도</th>
+						<th>데미지</th>
+						<th>최종 데미지</th>
+						<th>방어율 무시</th>
+						<th>보스 공격력</th>
+						<th>크리티컬 확률</th>
+						<th>크리티컬 데미지</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td id="spec_hp">HP+HP%</td>
+						<td id="spec_str">STR+%</td>
+						<td id="spec_dex">DEX+%</td>
+						<td id="spec_int">INT+%</td>
+						<td id="spec_luk">LUK+%</td>
+						<td id="spec_att">공격력/마력+%</td>
+						<td id="spec_mast">숙련도</td>
+						<td id="spec_dam">데미지</td>
+						<td id="spec_finaldam">최종 데미지</td>
+						<td id="spec_ignore">방어율 무시</td>
+						<td id="spec_bossdam">보스 공격력</td>
+						<td id="spec_crit">크리티컬</td>
+						<td id="spec_critdam">크리티컬 데미지</td>
+					</tr>
+				</tbody>
+			</table>
+			<form name="mybuff">
+			<div id="mybuff">
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary" onclick="multypet(0)">멀티펫 미사용</button>
+				<button type="button" class="btn btn-primary" onclick="multypet(1)">1</button>
+				<button type="button" class="btn btn-primary" onclick="multypet(2)">2</button>
+				<button type="button" class="btn btn-primary" onclick="multypet(3)">3</button>
+			</div>
+			<div id="multypet"><p>멀티펫 공격력 상승량 : 0</p></div>
 			<p>여긴 아직 준비가 않댄 대수</p>
 			<p>대신 세레브한 들참피를 드리겠습니다</p>
 			<img src=champ.png>
-		
+			<button type="button" class="btn btn-default">누질르자</button>
+			</div>
+			</form>
+		</div>
 		</div>
         <div class="tab_item" id="equip">
+		<div class="container">
             <h2>장비 아이템을 통해 얻는 스탯들을 다룹니다.</h2><br>
 			<form name="itemstat">
 			공 : <input type="number" name="att" autocomplete="off" value="15"><br>
@@ -225,14 +293,18 @@
 			부스탯퍼(%단위, 200%라면 200) : <input type="number" name="substatp" autocomplete="off" value="0">%<br>
 			올스탯퍼(%단위, 200%라면 200) : <input type="number" name="allstatp" autocomplete="off" value="0">%<br>
 			</form>
+		</div>
         </div>
 		<div class="tab_item" id="vmatrix">
-			<h2>버프 스킬들 / 도핑 물약류를 다룹니다.</h2><br>
+		<div class="container">
+			<h2>V 매트릭스로 얻는 스킬을 다룹니다.</h2><br>
 			<p>여긴 아직 준비가 않댄 대수</p>
 			<p>대신 세레브한 들참피를 드리겠습니다</p>
 			<img src=champ.png>
 		</div>
+		</div>
 		<div class="tab_item" id="union">
+		<div class="container">
 			<h2>메이플 유니온으로 얻는 스탯을 다룹니다.</h2><br>
 			<p>여긴 아직 준비가 덜 댄 대수</p>
 			<p>대신 세레브한 들참피를 드리겠습니다</p>
@@ -243,8 +315,10 @@
 			고정주스탯 : <input type="number" name="substat" autocomplete="off" value="0"><br>
 			</form>
 		</div>
+		</div>
 		<div class="tab_item" id="report">
-			내 스공은 올마??
+		<div class="container">
+			<h2>지금까지 입력된 정보에 따른 스탯창 수치입니다.</h2>
 			<form name="reports">
 			스탯계수 : <input type="number" name="totalstat" value="0" readonly><br>
 			공격력합 : <input type="number" name="totalatt" value="0" readonly><br>
@@ -252,16 +326,7 @@
 			디버그2 : <input type="text" name="d2" value="0" readonly><br>
 			</form>
 		</div>
-		
-		<nav class="navbar navbar-fixed-bottom">
-			<div class="container">
-				<div class="collapse navbar-collapse" id="nav-collapsible">
-					<form name="attReport">
-					지금 내 스공 : <input type="text" name="result" value="0" readonly>
-					</form>
-				</div>
-			</div>
-		</nav>
+		</div>
 	</div>
 	
 	<script src="index.js" type="text/javascript"></script>

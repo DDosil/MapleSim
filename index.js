@@ -16,47 +16,51 @@
 		"카이저", "엔젤릭버스터", "제로", "키네시스"
 		];
 		
+		var jobtable_buffname = [
+		["디바인 포스", "디바인 스위프트", "륀느의 가호", "래피드 타임(컴뱃)", "래피드 타임(디텍트)"]];
+		
 		//직업별 스탯 테이블, 완전한 패시브만 반영
-		//스탯코드, 피, 힘, 덱, 인, 럭, 피퍼, 힘퍼, 덱퍼, 인퍼, 럭퍼, 공격력/마력, 숙련도, 공%, 뎀%, 최종뎀%, 방무, 보공, 크리
+		//스탯코드, 피, 힘, 덱, 인, 럭, 피퍼, 힘퍼, 덱퍼, 인퍼, 럭퍼, 공격력/마력, 숙련도, 공%, 뎀%, 최종뎀%, 방무, 보공, 크리, 크뎀
 		var jobtable_adv =[
-		[10, 0, 30, 30, 0, 0, 20, 0, 0, 0, 0, 30, 0.9, 0, 0, 0, 50, 0, 25],//히어로0
-		[10, 0, 30, 30, 0, 0, 20, 0, 0, 0, 0, 110, 0.9, 0, 57, 42],//팔라딘1
-		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//다크나이트
-		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//불독
-		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//선골
-		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//비숍5
-		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//보우마스터
-		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//신궁
-		[40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//나로
-		[40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//섀도어
-		[40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//듀블10
-		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//캡틴
-		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//바이퍼
-		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//캐논
-		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//소마
-		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//미하일15
-		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//플위
-		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//윈브
-		[40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//나워
-		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//스커
-		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//아란20
-		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//에반
-		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//루미
-		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//매르
-		[40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//팬텀
-		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//은월25
-		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//블래
-		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//데슬
-		[50, 600, 0, 0, 0, 0, 40, 0, 0, 0, 0, 90, 0.9, 0, 40, 25],//데벤
-		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//배메
-		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//와헌30
-		[60, 1000, 30, 30, 0, 30, 60, 20, 20, 0, 20, 80, 0.9, 0, 40, 0],//제논
-		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//메카닉
-		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//카이저
-		[20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//킹젤릭갓스터
-		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//제로35
-		[30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0],//키네시수
-		[10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0]//초보자37
+		[10, 0, 30, 30, 0, 0, 20, 30, 0.9, 0, 0, 0, 50, 0, 25, 0],//히어로0
+		[10, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//팔라딘1
+		[10, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//다크나이트
+		[30, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//불독
+		[30, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//선골
+		[30, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//비숍5
+		[20, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//보우마스터
+		[20, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//신궁
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//나로
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//섀도어
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//듀블10
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//캡틴
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//바이퍼
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//캐논
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//소마
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//미하일15
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//플위
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//윈브
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//나워
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//스커
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//아란20
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//에반
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//루미
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//매르
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//팬텀
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//은월25
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//블래
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//데슬
+		[50, 600, 0, 0, 0, 0, 40, 90, 0.9, 0, 40, 25, 0, 0, 0, 0],//데벤
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//배메
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//와헌30
+		[60, 1000, 30, 30, 0, 30, 60, 80, 0.9, 0, 40, 0, 0, 0, 0, 0],//제논
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//메카닉
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//카이저
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//킹젤릭갓스터
+		[10, 0, 50, 0, 0, 0, 45, 40, 0.9, 0, 30, 0, 30, 0, 45, 40],//제로알파35
+		[10, 0, 50, 0, 0, 0, 15, 80, 0.9, 0, 30, 0, 0, 30, 5, 0],//제로베타
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0],//키네시수
+		[40, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0]//초보자38
 		];
 		
 			
@@ -159,55 +163,59 @@
 		function selectjob(jc){//input : 직업코드
 			
 			Mystat.jobcode = jc;//직업코드 변경
-			Mystat.statcode = jobtable_adv[jc][0];
+			Mystat.statcode = jobtable_adv[jc][0];//주스탯 설정
 			document.jobname.jobname.value = jobtable_name[jc];//직업 탭의 내 직업 변경
+			showjobspec(jc);//버프 탭에 내 직업 기초스펙 표시
+			//showjobbuff(jc); //버프 탭에 내 직업의 액티브 버프 표시
 			document.basestat.lev.value = 10;
 			document.basestat.stat1.value = 4;//스탯, 레벨수치 초기화
 			var a = '<p style="font-weight:bolder">현재 직업은 ' + jobtable_name[jc] + "입니다.</p>";
 			var b = "";
+			document.getElementById("myjob02").innerHTML = a
+			+ "<p>이 직업의 기초 스펙(노버프 상태에서의 패시브 스킬로 오르는 스탯들의 합)</p>";
 			switch(jobtable_adv[jc][0]){
 				case 10:
 				a +='<p style="font-weight:bolder">주 스탯 : STR, 부 스탯: DEX</p>';
-				document.getElementById("myjob").innerHTML = a;
+				document.getElementById("myjob01").innerHTML = a;
 				document.getElementById("stathead1").innerHTML="STR";
 				document.getElementById("stathead2").innerHTML="DEX";
 				document.getElementById("stathead3").innerHTML="얘는 제논이 씁니다";
 				break;
 				case 20:
-				a +="<p>주 스탯 : DEX, 부 스탯: STR</p>";
-				document.getElementById("myjob").innerHTML = a;
+				a +='<p style="font-weight:bolder">주 스탯 : DEX, 부 스탯: STR</p>';
+				document.getElementById("myjob01").innerHTML = a;
 				document.getElementById("stathead1").innerHTML="DEX";
 				document.getElementById("stathead2").innerHTML="STR";
 				document.getElementById("stathead3").innerHTML="얘는 제논이 씁니다";
 				break;
 				case 30:
-				a +="<p>주 스탯 : INT, 부 스탯: LUK</p>";
-				document.getElementById("myjob").innerHTML = a;
+				a +='<p style="font-weight:bolder">주 스탯 : INT, 부 스탯: LUK</p>';
+				document.getElementById("myjob01").innerHTML = a;
 				document.getElementById("stathead1").innerHTML="INT";
 				document.getElementById("stathead2").innerHTML="LUK";
 				document.getElementById("stathead3").innerHTML="얘는 제논이 씁니다";
 				break;
 				case 40:
-				a +="<p>주 스탯 : LUK, 부 스탯: DEX</p>";
-				document.getElementById("myjob").innerHTML = a;
+				a +='<p style="font-weight:bolder">주 스탯 : LUK, 부 스탯: DEX</p>';
+				document.getElementById("myjob01").innerHTML = a;
 				document.getElementById("stathead1").innerHTML="LUK";
 				document.getElementById("stathead2").innerHTML="DEX";
 				document.getElementById("stathead3").innerHTML="얘는 제논이 씁니다";
 				break;
 				case 50:
-				a +="<p>주 스탯 : HP, 부 스탯: STR</p>";
+				a +='<p style="font-weight:bolder">주 스탯 : HP, 부 스탯: STR</p>';
 				a +="<p>주의 : 실제 게임에서의 수치와 맞지 않을 수 있습니다. 정확한 데이터를 수집하고 있습니다.</p>";
 				a +="<p>현재 카리스마로 상승하는 HP를 템피로 계산하여 순피에 포함하지 않고 있습니다.</p>";
-				document.getElementById("myjob").innerHTML = a;
+				document.getElementById("myjob01").innerHTML = a;
 				document.getElementById("stathead1").innerHTML="HP";
 				document.getElementById("stathead2").innerHTML="STR";
 				document.getElementById("stathead3").innerHTML="얘는 제논이 씁니다";
 				break;
 				case 60:
-				a +="<p>주 스탯 : STR, DEX, LUK</p>";
+				a +='<p style="font-weight:bolder">주 스탯 : STR, DEX, LUK</p>';
 				a +="<p>192레벨 이하에서의 분배 방식은 현재 개발중입니다.</p>";
 				a +="<p>현재 럭 제논 기준으로 스탯을 산출하고 있으며, 다른 스탯을 사용하는 분배 방식은 현재 개발중입니다.</p>";
-				document.getElementById("myjob").innerHTML = a;
+				document.getElementById("myjob01").innerHTML = a;
 				document.getElementById("stathead1").innerHTML="STR";
 				document.getElementById("stathead2").innerHTML="DEX";
 				document.getElementById("stathead3").innerHTML="LUK";
@@ -216,6 +224,40 @@
 				break;
 			}
 		}
+		
+		//직업 스펙정보 표시용(#buff)
+		function showjobspec(jc){
+			//스탯코드, 피, 힘, 덱, 인, 럭, 피퍼, 공격력/마력, 숙련도, 공%, 뎀%, 최종뎀%, 방무, 보공, 크리
+			//피 힘 덱 인 럭 공마 숙련도 뎀퍼 최종뎀 방무 보공 크리 크뎀
+			document.getElementById("spec_hp").innerHTML = jobtable_adv[jc][1] + "+" + jobtable_adv[jc][6] + "%";
+			document.getElementById("spec_str").innerHTML = jobtable_adv[jc][2];
+			document.getElementById("spec_dex").innerHTML = jobtable_adv[jc][3];
+			document.getElementById("spec_int").innerHTML = jobtable_adv[jc][4];
+			document.getElementById("spec_luk").innerHTML = jobtable_adv[jc][5];
+			document.getElementById("spec_att").innerHTML = jobtable_adv[jc][7] + "+" + jobtable_adv[jc][9] + "%";
+			document.getElementById("spec_mast").innerHTML = jobtable_adv[jc][8]*100 + "%";
+			document.getElementById("spec_dam").innerHTML = jobtable_adv[jc][10] + "%";
+			document.getElementById("spec_finaldam").innerHTML = jobtable_adv[jc][11] + "%";
+			document.getElementById("spec_ignore").innerHTML = jobtable_adv[jc][12] + "%";
+			document.getElementById("spec_bossdam").innerHTML = jobtable_adv[jc][13] + "%";
+			document.getElementById("spec_crit").innerHTML = jobtable_adv[jc][14] + "%";
+			document.getElementById("spec_critdam").innerHTML = jobtable_adv[jc][15] + "%";
+		}
+		function multypet(num) {
+			var a = Math.pow(num+1, 2)-1;
+			document.getElementById("multypet").innerHTML = "<p>멀티펫 공격력 상승량 : " + a + "</p>";
+		}
+		//직업 버프정보 표시용(#buff)
+		function showjobbuff(jc){
+			//버프 이름 테이블에서 버프 이름들을 불러와서
+			//그걸 표시하고
+			//그 버프 이름들로 버튼을 만든 다음
+			//버프 스펙 테이블에서 버프 스펙들을 불러와서
+			//각 버튼마다 버프들의 스펙을 배당해줌
+			//현재 켜진 버프들의 스펙 변화량을 계산해서
+			//보여줌
+		}
+		
 		
 		//키 입력, 마우스 클릭시 스공 갱신
 		//기본 스탯 + 아이템 스탯
@@ -390,7 +432,8 @@ function calclevelstat(stat){
 		}
 			
 		if(document.basestat.lev.value>=140){
-			//showHyper();
+			var hhp = "<p>여긴 아직 준비가 않댄 대수</p><p>대신 세레브한 들참피를 드리겠습니다</p><img src=champ.png>";
+			document.getElementById("hyperstat").innerHTML = hhp;
 		}
 		else {
 			var hhp = "<p>하이퍼 스탯은 레벨 140 이상에서 습득 가능합니다.</p>";
