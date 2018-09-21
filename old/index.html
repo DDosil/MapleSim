@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>메이플스토리 스탯 시뮬레이터</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+		integrity="sha384-pdapHxIh7EYuwy6K7iE41uXVxGCXY0sAjBzaElYGJUrzwodck3Lx6IE2lA0rFREo"
+		crossorigin="anonymous"></link>
+	<link rel="stylesheet" href="index.css"></link>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"
+		integrity="sha384-R4/ztc4ZlRqWjqIuvf6RX5yb/v90qNGx6fS48N0tRxiGkqveZETq72KgDVJCp2TC"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+		integrity="sha384-pPttEvTHTuUJ9L2kCoMnNqCRcaMPMVMsWVO+RLaaaYDmfSP5//dP6eKRusbPcqhZ" 
+		crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="index.css" type="text/css">
+	<meta name="autocomplete" content="off"/>
+</head>
+<body>
+		
+		<nav class="navbar navbar-inverse navbar-static-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" data-toggle="modal" data-target="#myModal">스공시뮬 KMS v1.2.271</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="#main" id="defaultClick">메인</a></li>
+					<li><a href="#jobs">직업</a></li>
+					<li><a href="#status">기본 스탯/어빌리티</a></li>
+					<li><a href="#buff">버프/도핑/링크 스킬</a></li>
+					<li><a href="#equip">장비 아이템</a></li>
+					<li><a href="#vmatrix">V 매트릭스</a></li>
+					<li><a href="#union">메이플 유니온</a></li>
+					<li><a href="#report">DPM 정보</a></li>
+				</ul>
+			</div>
+		</nav>
+		
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+		</button>
+        <h4 class="modal-title" id="myModalLabel">누가 만들었나?</h4>
+		</div>
+		<div class="modal-body">
+		<img src=soondooking.png>
+		<p>순두킹@크로아가 만들었음</p>
+		<p>음식에 되도록이면 소스를 뿌리지 않는 걸 좋아함</p>
+		<p>너무 꼬1치꼬1치 캐묻다간 경찰서!!!!!에 갈 수 있으니 조심하자</p>
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		</div>
+		</div>
+		</div>
+		</div>
+		
+		<script>
+		document.getElementById("defaultClick").click();
+		</script>
+		
+		<div class="container">
+		<div class="tab_item" id="main">
+		<h2 class="page-header">뭐하는 사이트인가요?</h2>
+		<p>메이플스토리의 스공 시뮬레이터입니다.<br>
+		내 캐릭터의 정보를 입력하고, 템셋을 바꿨을 때 얼마나 강해질지를 수치화해서 볼 수 있습니다.</p>
+		<h2 class="page-header">어떻게 사용하나요?</h2>
+		<p>모든 탭에서 자기 캐릭터의 정보를 잘 넣어주고 DPM 정보 탭을 누르시면 스공과 DPM 정보를 보실 수 있습니다.</p>
+		</div>
+		</div>
+		
+		
+		<div class="tab_item" id="jobs">
+		<div class="container">
+			<h3>내 직업을 골라보자</h3>
+			<form name="jobname">
+			<p>현재 선택한 직업 : <input type="text" name="jobname" value="초보자" readonly><br>
+			</form>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>전사</th>
+						<th>마법사</th>
+						<th>궁수</th>
+						<th>도적</th>
+						<th>해적</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td rowspan="3">모험가</td>
+						<td><button onclick="selectjob(0);" type="button" class="btn btn-default" name="hero">히어로</button></td>
+						<td><button onclick="selectjob(3);" type="button" class="btn btn-default" name="arcmagefire">아크메이지(불,독)</button></td>
+						<td><button onclick="selectjob(6);" type="button" class="btn btn-default" name="bowmaster">보우마스터</button></td>
+						<td><button onclick="selectjob(8);" type="button" class="btn btn-default" name="nightlord">나이트로드</button></td>
+						<td><button onclick="selectjob(11);" type="button" class="btn btn-default" name="captain">캡틴</button></td>
+					</tr>
+					<tr>
+						<td><button onclick="selectjob(1);" type="button" class="btn btn-default" name="paladin">팔라딘</button></td>
+						<td><button onclick="selectjob(4);" type="button" class="btn btn-default" name="arcmagecold">아크메이지(썬,콜)</button></td>
+						<td><button onclick="selectjob(7);" type="button" class="btn btn-default" name="marksman">신궁</button></td>
+						<td><button onclick="selectjob(9);" type="button" class="btn btn-default" name="shadower">섀도어</button></td>
+						<td><button onclick="selectjob(12);" type="button" class="btn btn-default" name="viper">바이퍼</button></td>
+					</tr>
+					<tr>
+						<td><button onclick="selectjob(2);" type="button" class="btn btn-default" name="darkknight">다크나이트</button></td>
+						<td><button onclick="selectjob(5);" type="button" class="btn btn-default" name="bishop">비숍</button></td>
+						<td></td>
+						<td><button onclick="selectjob(10);" type="button" class="btn btn-default" name="duelblade">듀얼블레이드</button></td>
+						<td><button onclick="selectjob(13);" type="button" class="btn btn-default" name="cannonshootter">캐논슈터</button></td>
+					</tr>
+					<tr>
+						<td rowspan="2">시그너스 기사단</td>
+						<td><button onclick="selectjob(14);" type="button" class="btn btn-default" name="soulmaster">소울마스터</button></td>
+						<td rowspan="2"><button onclick="selectjob(16);" type="button" class="btn btn-default" name="flamewizard">플레임위자드</button></td>
+						<td rowspan="2"><button onclick="selectjob(17);" type="button" class="btn btn-default" name="windbreaker">윈드브레이커</button></td>
+						<td rowspan="2"><button onclick="selectjob(18);" type="button" class="btn btn-default" name="nightwalker">나이트워커</button></td>
+						<td rowspan="2"><button onclick="selectjob(19);" type="button" class="btn btn-default" name="striker">스트라이커</button></td>
+					</tr>
+					<tr>
+						<td><button onclick="selectjob(15);" type="button" class="btn btn-default" name="michael">미하일</button></td>
+					</tr>
+					<tr>
+						<td rowspan="2">영웅</td>
+						<td rowspan="2"><button onclick="selectjob(20);" type="button" class="btn btn-default" name="aran">아란</button></td>
+						<td><button onclick="selectjob(21);" type="button" class="btn btn-default" name="evan">에반</button></td>
+						<td rowspan="2"><button onclick="selectjob(23);" type="button" class="btn btn-default" name="mercedes">메르세데스</button></td>
+						<td rowspan="2"><button onclick="selectjob(24);" type="button" class="btn btn-default" name="phantom">팬텀</button></td>
+						<td rowspan="2"><button onclick="selectjob(25);" type="button" class="btn btn-default" name="shade">은월</button></td>
+					</tr>
+					<tr>
+						<td><button onclick="selectjob(22);" type="button" class="btn btn-default" name="luminous">루미너스</button></td>
+					</tr>
+					<tr>
+						<td rowspan="3">레지스탕스</td>
+						<td><button onclick="selectjob(26);" type="button" class="btn btn-default" name="blaster">블래스터</button></td>
+						<td rowspan="3"><button onclick="selectjob(29);" type="button" class="btn btn-default" name="battlemage">배틀메이지</button></td>
+						<td rowspan="3"><button onclick="selectjob(30);" type="button" class="btn btn-default" name="wildhunter">와일드헌터</button></td>
+						<td></td>
+						<td><button onclick="selectjob(32);" type="button" class="btn btn-default" name="mechanic">메카닉</button></td>
+					</tr>
+					<tr>
+						<td><button onclick="selectjob(27);" type="button" class="btn btn-default" name="demonslayer">데몬슬레이어</button></td>
+						<td rowspan="2" colspan="2"><button onclick="selectjob(31);" type="button" class="btn btn-default" name="xenon">제논</button></td>
+					</tr>
+					<tr>
+						<td><button onclick="selectjob(28);" onclick="selectjob(28);" type="button" class="btn btn-default" name="demonavenger">데몬어벤져</button></td>
+					</tr>
+					<tr>
+						<td>노바</td>
+						<td><button onclick="selectjob(33);" type="button" class="btn btn-default" name="kaiser">카이저</button></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><button onclick="selectjob(34);" type="button" class="btn btn-default" name="angelicbuster">엔젤릭버스터</button></td>
+					</tr>
+					<tr>
+						<td>신의 아이</td>
+						<td><button onclick="selectjob(35);" type="button" class="btn btn-default" name="zero">제로</button></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>타고난 천재 영웅</td>
+						<td></td>
+						<td><button onclick="selectjob(37);" type="button" class="btn btn-default" name="kinesys">키네시스</button></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		</div>
+        <div class="tab_item" id="status">
+		<div class="container">
+            <h2>레벨 업으로 얻는 스탯을 다룹니다.</h2><br>
+			<div id="myjob01">
+			<p>현재 직업은 초보자입니다. <br>
+			직업 탭에서 직업을 선택해 주세요.</p>
+			</div>
+			<form name="basestat">
+			<p>레벨 : <input type="number" name="lev" autocomplete="off" onkeyup="calclevelstat(Mystat);" value="10"></p>
+			<h4 style="font-weight:bolder">아이템 옵션을 제외한 순수 스탯만을 표시합니다.</h4>
+			<table class="table">
+				<thead>
+					<tr>
+						<th id="stathead1">STR</th>
+						<th id="stathead2">DEX</th>
+						<th id="stathead3">얘는 제논이 씁니다</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="number" name="stat1" autocomplete="off" value="4" readonly></td>
+						<td><input type="number" name="stat2" autocomplete="off" value="4" readonly></td>
+						<td><input type="number" name="stat3" autocomplete="off" readonly></td>
+					</tr>
+				</tbody>
+			</table>
+			
+			</form>
+			<h3>하이퍼 스탯</h3><br>
+			<div id="hyperstat">
+			<p>하이퍼 스탯은 레벨 140 이상에서 습득 가능합니다.</p>
+			</div>
+			<h3>어빌리티</h3><br>
+			<div id="ability">
+			<form name="ability">
+				<p>여긴 아직 준비가 않댄 대수</p>
+				<p>대신 세레브한 들참피를 드리겠습니다</p>
+				<img src=champ.png>
+			</form>
+			</div>
+		</div>
+        </div>
+		<div class="tab_item" id="buff">
+		<div class="container">
+			<h2>버프 스킬들 / 도핑 물약류를 다룹니다.</h2><br>
+			<div id="myjob02">
+			<p>현재 직업은 초보자입니다. <br>
+			직업 탭에서 직업을 선택해 주세요.</p>
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>HP</th>
+						<th>STR</th>
+						<th>DEX</th>
+						<th>INT</th>
+						<th>LUK</th>
+						<th>공격력/마력</th>
+						<th>숙련도</th>
+						<th>데미지</th>
+						<th>최종 데미지</th>
+						<th>방어율 무시</th>
+						<th>보스 공격력</th>
+						<th>크리티컬 확률</th>
+						<th>크리티컬 데미지</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td id="spec_hp">HP+HP%</td>
+						<td id="spec_str">STR+%</td>
+						<td id="spec_dex">DEX+%</td>
+						<td id="spec_int">INT+%</td>
+						<td id="spec_luk">LUK+%</td>
+						<td id="spec_att">공격력/마력+%</td>
+						<td id="spec_mast">숙련도</td>
+						<td id="spec_dam">데미지</td>
+						<td id="spec_finaldam">최종 데미지</td>
+						<td id="spec_ignore">방어율 무시</td>
+						<td id="spec_bossdam">보스 공격력</td>
+						<td id="spec_crit">크리티컬</td>
+						<td id="spec_critdam">크리티컬 데미지</td>
+					</tr>
+				</tbody>
+			</table>
+			<form name="mybuff">
+			<div id="mybuff">
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary" onclick="multypet(0)">멀티펫 미사용</button>
+				<button type="button" class="btn btn-primary" onclick="multypet(1)">1</button>
+				<button type="button" class="btn btn-primary" onclick="multypet(2)">2</button>
+				<button type="button" class="btn btn-primary" onclick="multypet(3)">3</button>
+			</div>
+			<div id="multypet"><p>멀티펫 공격력 상승량 : 0</p></div>
+			<p>여긴 아직 준비가 않댄 대수</p>
+			<p>대신 세레브한 들참피를 드리겠습니다</p>
+			<img src=champ.png>
+			<button type="button" class="btn btn-default">누질르자</button>
+			</div>
+			</form>
+		</div>
+		</div>
+        <div class="tab_item" id="equip">
+		<div class="container">
+            <h2>장비 아이템을 통해 얻는 스탯들을 다룹니다.</h2><br>
+			<form name="itemstat">
+			공 : <input type="number" name="att" autocomplete="off" value="15"><br>
+			주스탯 : <input type="number" name="mainstat" autocomplete="off" value="0"><br>
+			부스탯 : <input type="number" name="substat" autocomplete="off" value="0"><br>
+			공퍼(% 단위, 30%라면 30) : <input type="number" name="attp" autocomplete="off" value="0">%<br>
+			주스탯퍼(%단위, 200%라면 200) : <input type="number" name="mainstatp" autocomplete="off" value="0">%<br>
+			부스탯퍼(%단위, 200%라면 200) : <input type="number" name="substatp" autocomplete="off" value="0">%<br>
+			올스탯퍼(%단위, 200%라면 200) : <input type="number" name="allstatp" autocomplete="off" value="0">%<br>
+			</form>
+		</div>
+        </div>
+		<div class="tab_item" id="vmatrix">
+		<div class="container">
+			<h2>V 매트릭스로 얻는 스킬을 다룹니다.</h2><br>
+			<p>여긴 아직 준비가 않댄 대수</p>
+			<p>대신 세레브한 들참피를 드리겠습니다</p>
+			<img src=champ.png>
+		</div>
+		</div>
+		<div class="tab_item" id="union">
+		<div class="container">
+			<h2>메이플 유니온으로 얻는 스탯을 다룹니다.</h2><br>
+			<p>여긴 아직 준비가 덜 댄 대수</p>
+			<p>대신 세레브한 들참피를 드리겠습니다</p>
+			<img src=champ.png>
+			<form name="fixed">
+			고정공 : <input type="number" name="att" autocomplete="off" value="0"><br>
+			고정주스탯 : <input type="number" name="mainstat" autocomplete="off" value="0"><br>
+			고정주스탯 : <input type="number" name="substat" autocomplete="off" value="0"><br>
+			</form>
+		</div>
+		</div>
+		<div class="tab_item" id="report">
+		<div class="container">
+			<h2>지금까지 입력된 정보에 따른 스탯창 수치입니다.</h2>
+			<form name="reports">
+			스탯계수 : <input type="number" name="totalstat" value="0" readonly><br>
+			공격력합 : <input type="number" name="totalatt" value="0" readonly><br>
+			디버그1 : <input type="text" name="d1" value="0" readonly><br>
+			디버그2 : <input type="text" name="d2" value="0" readonly><br>
+			</form>
+		</div>
+		</div>
+	</div>
+	
+	<script src="index.js" type="text/javascript"></script>
+</body>
+</html>
