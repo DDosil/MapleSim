@@ -16,7 +16,7 @@ var sfdestP = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 var sfdestP01 = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	-1,-1,-1,-1,-1, -1,-1,0.03,0.04,0.04,
 	0.1, 0.1, 0.2, 0.3, 0.4];
-//2번파방옵션, 1516만파방
+//2번파방옵션, 151617만파방
 var sfdestP02 = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	-1,-1,0.01,0.02,0.02, -1,-1,0.03,0.04,0.04,
 	0.1, 0.1, 0.2, 0.3, 0.4];
@@ -119,7 +119,6 @@ function starforce(){
 		alert('모지? 돈을 만들고 싶은건가?ㅋㅋ');
 		return 0;
 	}
-console.log(nologs.checked);
  for(var i=0;i<itemcount;i++){
 	 spentmeso = 0;
 	 myStar = parseInt(document.sf.startstar.value);
