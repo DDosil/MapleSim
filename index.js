@@ -82,6 +82,7 @@ function starforce(){
 	var myStar = parseInt(document.sf.startstar.value);//시작스타포스
 	var targetStar = parseInt(document.sf.endstar.value);//타겟스타포스
 	var itemcount = document.sf.itemcount.value;//몇 개 만드나?
+	var nologs = document.getElementById('nologs');
 	var chancetime = 0;//찬스타임 플래그
 	var cr=0;//파괴횟수
 	var mytry=0;//시도횟수
@@ -110,7 +111,7 @@ function starforce(){
 		alert('모지? 돈을 만들고 싶은건가?ㅋㅋ');
 		return 0;
 	}
-
+console.log(nologs.checked);
  for(var i=0;i<itemcount;i++){
 	 spentmeso = 0;
 	 myStar = parseInt(document.sf.startstar.value);
@@ -118,27 +119,35 @@ function starforce(){
 
 	while(myStar<targetStar){//목표 스타포스보다 적으면 반복
 		if(chancetime==2){//찬스타임이면
+			if(nologs.checked!=true){
 			logs+= (myStar) + '→' + (myStar+1) + ' 강화 성공(찬스타임), ' + spendmeso(myStar,itemlev,events,prot,mvps,pc) +'메소 소모<br>';
+		}
 			spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
 			myStar++;//별하나추가
 			chancetime=0;//찬스타임 플래그 초기화
 			straight++;
 		}else if(events==3 && myStar<16 && myStar%5==0){//5,10,15성 이벤
+			if(nologs.checked!=true){
 			logs+= (myStar) + '→' + (myStar+1) + ' 강화 성공(5,10,15성 이벤트), ' + spendmeso(myStar,itemlev,events,prot,mvps,pc) +'메소 소모<br>';
+		}
 			spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
 			myStar++;//별하나추가
 			chancetime=0;//찬스타임 플래그 초기화
 			straight++;
 		}else{
 			if(Math.random()<sfsuccP[myStar] + catchplus){//성공시
+				if(nologs.checked!=true){
 				logs+= (myStar) + '→' + (myStar+1) + ' 강화 성공, ' + spendmeso(myStar,itemlev,events,prot,mvps,pc) +'메소 소모<br>';
+			}
 				spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
 				myStar++;//별하나 더함
 				chancetime=0;//찬스타임 플래그 초기화
 				straight++;
 			}else {//성공 못할시
 				if(Math.random()<seldest(prot)[myStar]){//파괴될시
+					if(nologs.checked!=true){
 					logs+= '<span style="color:red">'+(myStar) + '→12 강화 실패(파괴), ' + spendmeso(myStar,itemlev,events,prot,mvps,pc) +'메소 소모</span><br>';
+				}
 					spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
 					spentmeso+=itemcost;//파괴시 아이템 원가 추가
 					myStar = 12;//12성으로 돌아감
@@ -148,11 +157,15 @@ function starforce(){
 				}else{//파괴안된 보통 실패시
 					if(myStar<6 || myStar%5==0){//5의 배수이거나 5성 아래일시
 						//별 유지
+						if(nologs.checked!=true){
 						logs+= (myStar) + '→' + (myStar) + ' 강화 실패(유지), ' + spendmeso(myStar,itemlev,events,prot,mvps,pc) +'메소 소모<br>';
+					}
 						spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
 						straight=-1;
 					}else{//그게 아닐시
+						if(nologs.checked!=true){
 						logs+= (myStar) + '→' + (myStar-1) + ' 강화 실패(하락), ' + spendmeso(myStar,itemlev,events,prot,mvps,pc) +'메소 소모<br>';
+					}
 						spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
 						myStar--;//별 하락
 						chancetime++;//찬스타임 플래그 +1
@@ -164,7 +177,9 @@ function starforce(){
 		}
 		mytry++;//시도횟수 1회추가
 	}
+	if(nologs.checked!=true){
 	logs+= '<span style="color:blue">'+(i+1) + '번째 아이템 ' + myStar + '성으로 강화 완료</span><br><br>'
+	}
 	totalspentmeso +=spentmeso;
 	if(spentmeso>maxmeso){maxmeso = spentmeso}
 	if(spentmeso<minmeso){minmeso = spentmeso}
@@ -173,8 +188,11 @@ function starforce(){
  	 res+= '<img src=icon_20.png><br>';
   }
 }
+if(nologs.checked!=true){
 logs+= '<button type="button" class="btn btn-dark btn-lg" onclick="getres()">돌아가기</button><br>';
-
+}else{
+	logs+= '로그를 보지 않도록 설정되어 있습니다.';
+}
 var trace = {
 	x: spentmesolist,
 	opacity: 0.75,
