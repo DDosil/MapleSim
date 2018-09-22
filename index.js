@@ -284,8 +284,6 @@ function getres(){
 function eokcut(num){
 	var x = Math.floor(num/10000000);
 	var y = "";
-	console.log(x);
-
 	if(x>9){y+= (parseInt(x/10).toString()) + '억 ';}
 	if(x%10!=0){y += (x%10).toString() +'천만 ';}
 	y+= '메소';
