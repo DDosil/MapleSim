@@ -15,18 +15,19 @@
 		integrity="sha384-pPttEvTHTuUJ9L2kCoMnNqCRcaMPMVMsWVO+RLaaaYDmfSP5//dP6eKRusbPcqhZ"
 		crossorigin="anonymous"></script>
     <link rel="stylesheet" href="index.css" type="text/css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 	<meta name="autocomplete" content="off"/>
 </head>
 <body>
-
 		<nav class="navbar navbar-inverse navbar-static-top">
 			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand" data-toggle="modal" data-target="#myModal">메시뮬</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li><a href="#starforce" id="defaultClick">스타포스 시뮬레이터</a></li>
-          <li><a href="#sfsimresult" id="restab">시뮬레이터 결과</a></li>
+          <li><a href="#infos" id="defaultClick">안내</a></li>
+					<li><a href="#starforce" id="autosim">자동강화 시뮬레이터</a></li>
+          <li><a href="#sfsimresult" id="restab">자동강화 결과</a></li>
           <li><a href="#sflogs" id="logtab">강화로그</a></li>
           <li><a href="#sfcosttable">스타포스 비용표</a></li>
           <li><a href="#sfprobtable" onclick="sfprobtable()">스타포스 확률표</a></li>
@@ -64,6 +65,21 @@
 		<script>
 		document.getElementById("defaultClick").click();
 		</script>
+
+    <div class="tab_item" id="infos">
+
+		<div class="container">
+		<h2 class="page-header">자동강화 시뮬레이터란?</h2>
+		<p>목표치를 정하고 자동으로 강화를 합니다.<br>
+		소모 메소량을 대략적으로 알 수 있고, 동일한 목표치를 갖고 강화한 25000개 아이템의 통계와 비교해서 대략적인 운세의 급을 알 수 있습니다.<br>
+  오늘의 강화운세를 점쳐보기 좋습니다.</p>
+  <button type="button" class="btn btn-dark btn-lg" onclick="window.location.href='#starforce'">하러가기</button>
+		<h2 class="page-header">수동강화 시뮬레이터란?</h2>
+		<p>인게임처럼 한 땀 한 땀 열심히 강화를 합니다.<br>
+    강화는 하고싶은데 메소가 없을 때, 혹은 강화가 너무 하고싶어서 현실을 깨달아야 할 때 쓰면 좋습니다.<br></p>
+    <button type="button" class="btn btn-dark btn-lg" onclick="">지금은 준비중입니다. </button>
+		</div>
+    </div>
 
         <div class="tab_item" id="starforce">
 		<div class="container">
@@ -146,6 +162,8 @@
         </div>
         <div class="tab_item" id="sfsimresult">
           <div class="container">
+            <div id="myDiv">
+            </div>
               <div class="res" id="resinside">
                 <h2>먼저 시뮬레이터를 돌려 주세요.</h2>
               </div>
