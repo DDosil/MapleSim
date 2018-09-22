@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>메이플 스타포스 시뮬레이터</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+		integrity="sha384-pdapHxIh7EYuwy6K7iE41uXVxGCXY0sAjBzaElYGJUrzwodck3Lx6IE2lA0rFREo"
+		crossorigin="anonymous"></link>
+	<link rel="stylesheet" href="index.css"></link>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"
+		integrity="sha384-R4/ztc4ZlRqWjqIuvf6RX5yb/v90qNGx6fS48N0tRxiGkqveZETq72KgDVJCp2TC"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+		integrity="sha384-pPttEvTHTuUJ9L2kCoMnNqCRcaMPMVMsWVO+RLaaaYDmfSP5//dP6eKRusbPcqhZ"
+		crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="index.css" type="text/css">
+	<meta name="autocomplete" content="off"/>
+</head>
+<body>
+
+		<nav class="navbar navbar-inverse navbar-static-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" data-toggle="modal" data-target="#myModal">메시뮬</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="#starforce" id="defaultClick">스타포스 시뮬레이터</a></li>
+          <li><a href="#sfsimresult" id="restab">시뮬레이터 결과</a></li>
+          <li><a href="#sflogs" id="logtab">강화로그</a></li>
+          <li><a href="#sfcosttable">스타포스 비용표</a></li>
+          <li><a href="#sfprobtable" onclick="sfprobtable()">스타포스 확률표</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+		</button>
+        <h4 class="modal-title" id="myModalLabel">안녕하세요. Maple Heroes.</h4>
+		</div>
+		<div class="modal-body">
+		<img src=0face.gif>
+		<p>나는 Croa의 영을 기르는 순두 왕 이다.</p>
+    <p>나는 Star 힘의 가상 사이트를 제작. Gall에서 좋은 평가 받다.</p>
+    <p>하지만 단풍잎 gall하는 불만이 또 있어요?</p>
+    <p>이 page는 가상의 enhancement 목적으로 만들어지다. 실제의 재현 목적이 아닙니다.</p>
+    <p>Maple heroes 실제의 강화를 원합니까?why? 당신의 Item 투명한으로 대체되었다.</p>
+    <p>real 강화를 원하면 Maple world로 오십시오. 그것은 당신의 money 흡수하다 and your 인생 too. 또한 coin 가게 무료로 지급됩니다.</p>
+    <p>항상 Maplestory를 사랑해주신 여러분 앞으로도 결제하십시오. and I also 일퀘좋아</p>
+    <p>Respectfully, 순두킹.</p>
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		</div>
+		</div>
+		</div>
+		</div>
+
+		<script>
+		document.getElementById("defaultClick").click();
+		</script>
+
+        <div class="tab_item" id="starforce">
+		<div class="container">
+            <h2>강화운을 시험해보자.</h2><br>
+			<form name="sf">
+        <div class="form-group">
+        <label for="lev">아이템 레벨</label>
+        <input type="number" class="form-control" id="lev" name="lev" autocomplete="off" onkeyup="" value="150">
+      </div>
+      <div class="form-group">
+        <label for="sfcatch">스타캐치 확률증가량(%p단위, 해제: 0)</label>
+        <input type="number" class="form-control" id="sfcatch" name="sfcatch" autocomplete="off" onkeyup="" value="4.5">
+      </div>
+      <div class="form-group">
+        <label for="itemcost">파괴시 복구비용(아이템 원가)</label>
+        <input type="number" class="form-control" id="itemcost" name="itemcost" autocomplete="off" onkeyup="" value="0">
+      </div>
+    <div class="form-group">
+      <label for="startstar">시작 별 갯수</label>
+      <input type="number" class="form-control" id="startstar" name="startstar" autocomplete="off" value=0>
+    </div>
+    <div class="form-group">
+      <label for="endstar">목표 별 갯수</label>
+      <input type="number" class="form-control" id="endstar" name="endstar" autocomplete="off" value="17">
+    </div>
+    <div class="form-group">
+      <label for="itemcount">몇 개 만들까?</label>
+      <input type="number" class="form-control" id="itemcount" name="itemcount" autocomplete="off" value="1">
+    </div>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-dark active">
+        <input type ="radio" id="sfev01" name="events" value=1 checked>상특)이벤트는 무시함
+      </label>
+      <label class="btn btn-dark">
+      <input type ="radio" id="sfev02" name="events" value=2>30% 할인
+      </label>
+      <label class="btn btn-dark">
+      <input type ="radio" id="sfev03" name="events" value=3>5,10,15성 100%
+      </label>
+    </div>
+    <br>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-dark active">
+        <input type ="radio" id="sfpr01" name="prot" value=0 checked>상특)노파방
+      </label>
+      <label class="btn btn-dark">
+      <input type ="radio" id="sfpr02" name="prot" value=1>올 파괴방지
+      </label>
+      <label class="btn btn-dark">
+      <input type ="radio" id="sfpr03" name="prot" value=2>15,16 파괴방지
+      </label>
+    </div>
+    <br>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-dark active">
+      <input type ="radio" id="sfmvp01" name="mvps" value=0 checked>상특)브론즈
+      </label>
+      <label class="btn btn-dark">
+      <input type ="radio" id="sfmvp02" name="mvps" value=0.03>실버
+      </label>
+      <label class="btn btn-dark">
+      <input type ="radio" id="sfmvp03" name="mvps" value=0.05>골드
+      </label>
+      <label class="btn btn-dark">
+      <input type ="radio" id="sfmvp04" name="mvps" value=0.1>다이아
+      </label>
+  </div>
+  <br>
+  <div class="btn-group" data-toggle="buttons">
+    <label class="btn btn-dark active">
+    <input type ="radio" id="sfpc01" name="pc" value=0 checked>상특)피방안감
+    </label>
+    <label class="btn btn-dark">
+    <input type ="radio" id="sfpc02" name="pc" value=0.05>PC방 할인 적용
+    </label>
+  </div>
+      <br><br><button type="button" class="btn btn-dark btn-lg" onclick="starforce()">강화 시작</button>
+			</form>
+		</div>
+        </div>
+        <div class="tab_item" id="sfsimresult">
+          <div class="container">
+              <div class="res" id="resinside">
+                <h2>먼저 시뮬레이터를 돌려 주세요.</h2>
+              </div>
+            </div>
+        </div>
+        <div class="tab_item" id="sflogs">
+          <div class="container">
+              <div id="loginside">
+                <h2>먼저 시뮬레이터를 돌려 주세요.</h2>
+              </div>
+            </div>
+        </div>
+        <div class="tab_item" id="sfcosttable">
+          <div class="container">
+            <form name = "sftbl">
+            <input type "number" class="form-control" autocomplete="off" id="sftlev" name="sftlev" onkeyup="showsftable()" placeholder="레벨을 입력하시면 표가 나옵니다">
+            </form>
+            <div id="showsftable">
+            </div>
+          </div>
+        </div>
+
+        <div class="tab_item" id="sfprobtable">
+          <div class="container">
+              <div id="protinside">
+              </div>
+            </div>
+        </div>
+	</div>
+
+	<script src="index.js" type="text/javascript"></script>
+</body>
+</html>
