@@ -52,7 +52,7 @@ var sfdestP02 = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 
 
 
-		if(prot==1 && mystar>11 && mystar<18){//올파방
+		if(prot==1 && mystar>11 && mystar<17){//올파방
 			basesale++;//100% 가격 추가
 			if(events==3 && mystar==15){//5 10 15성 이벤트때는
 				basesale--;//15성은 가격추가 안됨
