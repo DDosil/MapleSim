@@ -188,8 +188,8 @@ function starforce(){
 	logs+= '<span style="color:blue">'+(i+1) + '번째 아이템 ' + myStar + '성으로 강화 완료</span><br><br>'
 	}
 	totalspentmeso +=spentmeso;
-	if(spentmeso>maxmeso){maxmeso = spentmeso}
-	if(spentmeso<minmeso){minmeso = spentmeso}
+	if(spentmeso>maxmeso){maxmeso = spentmeso;}
+	if(spentmeso<minmeso){minmeso = spentmeso;}
 	if(straight == parseInt(document.sf.endstar.value)-parseInt(document.sf.startstar.value)){
  	 res+= '와우! 스트레이트!<br>';
  	 res+= '<img src=icon_20.png><br>';
@@ -200,31 +200,23 @@ logs+= '<button type="button" class="btn btn-dark btn-lg" onclick="getres()">돌
 }else{
 	logs+= '로그를 보지 않도록 설정되어 있습니다.';
 }
-var trace = {
-	x: spentmesolist,
-	opacity: 0.75,
-	type: 'histogram',
-};
-var layout = {
-  bargap: 0.05,
-  bargroupgap: 0.2
-};
-var data = [trace];
-Plotly.newPlot('myDiv',data, layout);
 
  res += '총'+ itemcount +'개 아이템을 '+parseInt(document.sf.startstar.value)+'성에서 ';
  res+= parseInt(document.sf.endstar.value) + '성으로 만들기 위해 ' +mytry+'회 강화했습니다.<br>';
- res+= '아이템당 평균 소모 메소 '+ addCommas(totalspentmeso/itemcount) + ' 메소 (약 ' +eokcut(totalspentmeso/itemcount)+ ')<br>';
+ if(itemcount!=1){ res+='나의 아이템당 평균 ';}
+ res+= '소모 메소 '+ addCommas(totalspentmeso/itemcount) + ' 메소 (약 ' +eokcut(totalspentmeso/itemcount)+ ')<br>';
  if(itemcount!=1){
- res+= '최대 메소 소모량 ' + addCommas(maxmeso) + ' 메소 (약 ' +eokcut(maxmeso)+ ')<br>';
- res+= '최저 메소 소모량 ' + addCommas(minmeso) + ' 메소 (약 ' +eokcut(minmeso)+ ')<br>';
+ res+= '내 최대 메소 소모량 ' + addCommas(maxmeso) + ' 메소 (약 ' +eokcut(maxmeso)+ ')<br>';
+ res+= '내 최저 메소 소모량 ' + addCommas(minmeso) + ' 메소 (약 ' +eokcut(minmeso)+ ')<br>';
 }
- res+= '아이템당 평균 파괴당한 횟수 ' + (cr/itemcount)+'회<br>';
- res+= '아이템당 평균 시행 횟수 ' + (mytry/itemcount)+'회<br>';
+ if(itemcount!=1){ res+='내 아이템당 평균 ';}
+ res+= '파괴당한 횟수 ' + (cr/itemcount)+'회<br>';
+ if(itemcount!=1){ res+='내 아이템당 평균 ';}
+ res+= '시행 횟수 ' + (mytry/itemcount)+'회<br>';
 
-	document.getElementById("resinside").innerHTML = res;
-	document.getElementById("loginside").innerHTML = logs;
 
+
+var allspentmeso = 0;
 	for(var i=0;i<25000;i++){
 		spentmeso = 0;
 		myStar = parseInt(document.sf.startstar.value);
@@ -263,7 +255,10 @@ Plotly.newPlot('myDiv',data, layout);
 			 }
 		 }
 	 }
-	 spentmesolist.push(Math.floor(spentmeso/10000000)*10000000);
+	 allspentmeso+=spentmeso;
+	 spentmesolist.push(Math.round(spentmeso/10000000)*10000000);
+	 if(spentmeso>maxmeso){maxmeso = spentmeso}
+ 		if(spentmeso<minmeso){minmeso = spentmeso}
 	}
 	var rankcount=0;
 	for(var i=0;i<25000;i++){
@@ -271,13 +266,18 @@ Plotly.newPlot('myDiv',data, layout);
 			rankcount++;
 		}
 	}
+
 	var rankperc = (rankcount/25000*100);
-	res+= '상위 ' + rankperc.toFixed(3) +'%의 운입니다(당신보다 돈을 많이 쓴 사람이 ' +(100-rankperc).toFixed(3)+'%입니다.).<br><br>'
+	var avrmeso = Math.round(allspentmeso/25000);
+	res+= '상위 ' + rankperc.toFixed(3) +'%의 운입니다(당신보다 돈을 많이 쓴 사람이 ' +(100-rankperc).toFixed(3)+'%입니다.).<br>'
+	res+= '전체 평균 메소 소모액은 ' + addCommas(avrmeso) + ' 메소 (약 ' +eokcut(avrmeso)+ ')입니다.<br>'
+	res+= '최고흑우의 메소 소모량 ' + addCommas(maxmeso) + ' 메소 (약 ' +eokcut(maxmeso)+ ')<br>';
+  res+= '최고운빨충의 메소 소모량 ' + addCommas(minmeso) + ' 메소 (약 ' +eokcut(minmeso)+ ')<br><br>';
 	res+= '<button type="button" class="btn btn-dark btn-lg" onclick="retsim()">돌아가기</button> ';
   res+= '<button type="button" class="btn btn-dark btn-lg" onclick="starforce()">같은 설정으로 다시 강화&통계 재설정</button> ';
   res+= '<button type="button" class="btn btn-dark btn-lg" onclick="getlog()">강화 로그 보기</button><br>';
  	document.getElementById("resinside").innerHTML = res;
-
+  document.getElementById("loginside").innerHTML = logs;
 
 	var trace = {
 	 x: spentmesolist,
@@ -288,7 +288,7 @@ Plotly.newPlot('myDiv',data, layout);
     },
 	};
 	var layout = {
-		title: document.sf.lev.value + '제 ' +parseInt(document.sf.startstar.value) + "→" + parseInt(document.sf.endstar.value) + "성까지 소모 메소 통계",
+		title: '25000개 아이템의 ' + document.sf.lev.value + '제 ' +parseInt(document.sf.startstar.value) + "→" + parseInt(document.sf.endstar.value) + "성까지 소모 메소 통계",
 	 bargap: 0.05,
 	 bargroupgap: 0.2
 	};
@@ -299,6 +299,9 @@ Plotly.newPlot('myDiv',data, layout);
 function retsim(){
 	document.getElementById("autosim").click();
 }
+function retst(){
+	document.getElementById("stautosim").click();
+}
 function getlog(){
 	document.getElementById("logtab").click();
 }
@@ -307,13 +310,413 @@ function getres(){
 }
 
 function eokcut(num){
-	var x = Math.floor(num/10000000);
+	var x = Math.round(num/10000000);
 	var y = "";
 	if(x>9){y+= (parseInt(x/10).toString()) + '억 ';}
 	if(x%10!=0){y += (x%10).toString() +'천만 ';}
 	y+= '메소';
 	return y;
 }
+
+function spelltrace(){
+	var upg = parseInt(document.st.upg.value);//업횟(황망포)
+	var stcost = parseInt(document.st.stcost.value);//주흔소모량
+	var stdil = document.st.stdil.value/100;//손재주+길드스킬. %단위 나눔
+	var stprot = document.st.stprot.value/100;//업횟깎이기 방지
+	var itemcount = parseInt(document.st.stitemcount.value);//템갯수
+	var nologs = document.getElementById('stnologs');
+	var stprob = $(":input:radio[name=stprob]:checked").val();
+	var stinno = $(":input:radio[name=stinno]:checked").val();
+	var ghprob = $(":input:radio[name=goldham]:checked").val();
+	var stevents = $(":input:radio[name=stevents]:checked").val();
+	var stfever = $(":input:radio[name=stfever]:checked").val();
+	var totalst = 0;
+	var totalinno = 0;
+	var totalwhite = 0;
+	var totalconvst = 0;
+	var spentst = 0;
+	var spentinno = 0;
+	var spentwhite = 0;
+	var spentconvst = 0;
+	var maxconvst = 0;
+	var minconvst = 1000000000000000;
+	var whitecount = 0;
+	var innocount = 0;
+	var straight=0;
+	var notfit = 0;
+	var upprob = 0;
+	var myup=0;//현재강화
+	var restup=upg-1;//남은업횟(황망 미적용)
+	var gh=0;//황망사용여부
+	var exp=0;
+	var res="";
+	var logs="";
+
+	if(stevents==2){
+		stcost = Math.round(stcost/2);
+	}
+	upprob = ((stprob==0)?((stfever==0)?0.3:0.45):((stfever==0)?0.15:0.25))+stdil;
+	exp = Math.round(upprob*upg);//기대값
+	logs+= '<button type="button" class="btn btn-dark btn-lg" onclick="getres()">돌아가기</button><br>';
+	if(nologs.checked!=true){
+	logs+='기대되는 최소 작 수치는 ' + exp + '작입니다.<br>';
+}
+
+	for(var i=0;i<itemcount;i++){
+		spentmeso=0;
+		spentinno=0;
+		spentwhite=0;
+		myup=0;
+		gh=0;
+		restup=upg-1;
+		straight=0;
+
+		while(myup<upg){//작 다할때까지
+
+			if(Math.round(myup+(restup+(gh==1?0:1))*upprob)<exp-1||notfit==1){
+				//기대값-1에 못 미칠 경우
+					//혹은 마지막업횟인데 기대값이 안나올시
+					if(nologs.checked!=true){
+					if(notfit==0){
+						logs+='<br> 현재 예상값(' + (Math.round(myup+(restup+(gh==1?0:1))*upprob))
+						logs+=')이 기대값-1인 '+ (exp-1) + '에 못 미쳐 이노센트 사용<br>';
+					}else{
+						logs+='<br> 현재 예상값(' + (myup+(restup+(gh==1?0:1))*upprob).toFixed(3);
+						logs+=')이 기대값 '+ (exp) + '에 못 미쳐 이노센트 사용<br>';
+					}
+				}
+					while(innocount<1000000){
+						if(stinno==0){//일반이노
+							spentinno++;//소모부터
+							if(Math.random()<0.5){
+								myup=0;
+								restup=upg-1;
+								gh=0;
+								if(nologs.checked!=true){
+									if(innocount!=0){
+								logs+='이노 ' + innocount +'회 실패 후 ';
+							}
+								logs+='이노 성공<br>';
+							}
+								innocount=0;
+								break;
+							}
+							innocount++;
+						}else{//아크이노
+							spentst+=10000;
+							if(Math.random()<0.45){
+								myup=0;
+								restup=upg-1;
+								gh=0;
+								if(nologs.checked!=true){
+									if(innocount!=0){
+								logs+='아크이노 ' + innocount +'회 실패 후 ';
+							}
+								logs+='아크이노 성공<br>';
+							}
+								innocount=0;
+								break;
+							}
+							innocount++;
+						}
+					}
+					notfit=0;
+				}
+			if(restup!=0){//주흔작 할지말지 판별, 남은업횟 0이 아님 주흔작 갈기기
+			if(Math.random()<upprob){//성공
+				myup++;
+				restup--;
+				spentst+=stcost;
+				straight++;
+				if(nologs.checked!=true){
+				logs+='성공 ';
+			}
+			}else{//실패
+				if(Math.random()<stprot){
+					spentst+=stcost;
+					if(nologs.checked!=true){
+					logs+='업횟보호발동 ';
+				}
+				}else{
+					spentst+=stcost;
+					restup--;
+					straight=-10;
+					if(nologs.checked!=true){
+					logs+='실패 ';
+
+				}
+				}
+			}
+			if(restup==0){
+				if(gh==0 && (myup+(restup+(gh==1?0:1))*upprob)<exp-1){//황망바르기전에 exp-1이 안됨
+					notfit = 1;
+			}else if(gh==1 && (myup+(restup+(gh==1?0:1))*upprob)<exp){//황망바르고 exp가 안됨
+				notfit = 1;
+			}
+		}else if(restup<3 && ghprob==1){//황망100%는 좀 더 까다롭게
+			if(Math.round(myup+upprob*(restup+1))<exp){
+				notfit = 1;
+			}
+		}
+		}
+
+
+				if(myup!=upg&&restup==0 && notfit==0){//남은 업횟 없고 이노때려야하는 애가 아닐
+
+					if(gh==2 && myup+1==upg){
+						restup++;
+						gh=1;
+						if(nologs.checked!=true){
+						logs+='<br>황금망치 성공, 업횟 1 추가<br>';
+					}
+					}else if(gh==0){
+						if(ghprob==0.5){//50퍼황망
+						if(Math.random()<ghprob){//황망꽂기
+							restup++;
+							gh=1;
+							if(nologs.checked!=true){
+							logs+='<br>황금망치 성공, 업횟 1 추가<br>';
+						}
+						}else{
+							gh=1;
+							straight=-50;
+							if(nologs.checked!=true){
+							logs+='<br>황금망치 실패';
+						}
+						}
+					}else{//100퍼황망
+						gh=2;//황망 유예하기
+						if(myup+upprob<exp){//기준값이 안될시
+							notfit=1;
+						}
+					}
+					}else{
+						if(whitecount==0){
+							if(nologs.checked!=true){
+							logs+='<br>';
+						}
+						}
+					if(Math.random()<0.1){//순백갈기기
+						restup++;
+						spentwhite++;
+						if(nologs.checked!=true){
+							if(whitecount!=0){
+						logs+='순백 실패 '+ whitecount + '회 후 ';
+					}
+						logs+='순백 성공<br>';
+					}
+						whitecount=0;
+					}else {
+						spentwhite++;
+						whitecount++;
+					}
+				}
+				}
+
+
+
+		}
+		//작 끝
+		if(nologs.checked!=true){
+		logs+=', <span style="color:blue">' +(i+1)+ '번째 아이템 작 완료</span><br><br>';
+	}
+	totalst+=spentst;
+	totalinno+=spentinno;
+	totalwhite+=spentwhite;
+	spentconvst = spentst + spentinno*5000 + spentwhite*2000;
+	totalconvst+=spentconvst;
+	if(spentconvst>maxconvst){maxconvst =  spentconvst;}
+	if(spentconvst<minconvst){minconvst = spentconvst;}
+
+	if(straight==upg){
+		res+= '와우! 스트레이트!<br>';
+  	res+= '<img src=icon_20.png><br>';
+	}
+
+	}//포문
+	if(nologs.checked!=true){
+	logs+= '<button type="button" class="btn btn-dark btn-lg" onclick="getres()">돌아가기</button><br>';
+	}else{
+		logs+= '로그를 보지 않도록 설정되어 있습니다.';
+	}
+  if(itemcount!=1){ res+='나의 아이템당 평균 ';}
+	res+='주문의 흔적(아크이노 포함)을 '+ addCommas(totalst/itemcount) + '개 소비했습니다.<br>';
+	if(itemcount!=1){ res+='나의 아이템당 평균 ';}
+	res+='이노센트 주문서(아크이노 미포함)를 '+ addCommas(totalinno/itemcount) + '장 소비했습니다.<br>';
+	if(itemcount!=1){ res+='나의 아이템당 평균 ';}
+	res+='순백의 주문서를 '+ addCommas(totalwhite/itemcount) + '장 소비했습니다.<br>';
+	res+='각 아이템을 주문의 흔적으로 환산 시 대략 ';
+	if(itemcount!=1){ res+='나의 아이템당 평균 ';}
+	res+=addCommas(totalconvst/itemcount) + '개의 주문의 흔적을 소비했습니다.<br>'
+	if(itemcount!=1){
+  res+= '내 최대 주문의 흔적 환산 소모량 ' + addCommas(maxconvst) + '개<br>';
+  res+= '내 최저 주문의 흔적 환산 소모량 ' + addCommas(minconvst) + '개<br>';
+ }
+
+var allspentconvst = 0;
+var spentconvstlist = [];
+totalst = 0;
+totalinno =0;
+totalwhite = 0;
+for(var i=0;i<100000;i++){
+	spentst=0;
+	spentinno=0;
+	spentwhite=0;
+	myup=0;
+	gh=0;
+	restup=upg-1;
+	straight=0;
+	spentconvst=0;
+	while(myup<upg){//작 다할때까지
+
+		if(Math.round(myup+(restup+(gh==1?0:1))*upprob)<exp-1||notfit==1){
+			//기대값-1에 못 미칠 경우
+				//혹은 마지막업횟인데 기대값이 안나올시
+				while(innocount<1000000){
+					if(stinno==0){//일반이노
+						spentinno++;//소모부터
+						if(Math.random()<0.5){
+							myup=0;
+							restup=upg-1;
+							gh=0;
+
+							innocount=0;
+							break;
+						}
+						innocount++;
+					}else{//아크이노
+						spentst+=10000;
+						if(Math.random()<0.45){
+							myup=0;
+							restup=upg-1;
+							gh=0;
+
+							innocount=0;
+							break;
+						}
+						innocount++;
+					}
+				}
+				notfit=0;
+			}
+		if(restup!=0){//주흔작 할지말지 판별, 남은업횟 0이 아님 주흔작 갈기기
+		if(Math.random()<upprob){//성공
+			myup++;
+			restup--;
+			spentst+=stcost;
+			straight++;
+
+		}else{//실패
+			if(Math.random()<stprot){
+				spentst+=stcost;
+
+			}else{
+				spentst+=stcost;
+				restup--;
+			straight=-10;
+			}
+		}
+		if(restup==0){
+			if(gh==0 && (myup+(restup+(gh==1?0:1))*upprob)<exp-1){//황망바르기전에 exp-1이 안됨
+				notfit = 1;
+		}else if(gh==1 && (myup+(restup+(gh==1?0:1))*upprob)<exp){//황망바르고 exp가 안됨
+			notfit = 1;
+		}
+	}else if(restup<3 && ghprob==1){//황망100%는 좀 더 까다롭게
+		if(Math.round(myup+upprob*(restup+1))<exp){
+			notfit = 1;
+		}
+	}
+	}
+
+
+			if(myup!=upg&&restup==0 && notfit==0){//남은 업횟 없고 이노때려야하는 애가 아닐
+
+				if(gh==2 && myup+1==upg){
+					restup++;
+					gh=1;
+
+				}else if(gh==0){
+					if(ghprob==0.5){//50퍼황망
+					if(Math.random()<ghprob){//황망꽂기
+						restup++;
+						gh=1;
+
+					}else{
+						gh=1;
+						straight=-50;
+
+					}
+				}else{//100퍼황망
+					gh=2;//황망 유예하기
+					if(myup+upprob<exp){//기준값이 안될시
+						notfit=1;
+					}
+				}
+				}else{
+					if(whitecount==0){
+					}
+				if(Math.random()<0.1){//순백갈기기
+					restup++;
+					spentwhite++;
+					whitecount=0;
+				}else {
+					spentwhite++;
+					whitecount++;
+				}
+			}
+			}
+	}//작 끝
+	totalst += spentst;
+	totalinno += spentinno;
+	totalwhite += spentwhite;
+
+	spentconvst = spentst + spentinno*5000 + spentwhite*2000;
+	allspentconvst+=spentconvst;
+	spentconvstlist.push(spentconvst);
+	if(spentconvst>maxconvst){maxconvst =  spentconvst;}
+	if(spentconvst<minconvst){minconvst = spentconvst;}
+}
+var rankcount = 0;
+for(var i=0;i<100000;i++){
+	if(spentconvstlist[i]<(totalconvst/itemcount)){
+		rankcount++;
+	}
+}
+
+var rankperc = (rankcount/100000*100);
+var avrconvst = Math.round(allspentconvst/100000);
+res+= '상위 ' + rankperc.toFixed(3) +'%의 운입니다(당신보다 환산 주흔을 많이 쓴 사람이 ' +(100-rankperc).toFixed(3)+'%입니다.).<br>';
+res+= '전체 평균 주흔 환산 소모량은 ' + addCommas(avrconvst) + '개입니다.<br>';
+res+= '최고흑우의 주흔 환산 소모량 ' + addCommas(maxconvst) + '개<br>';
+res+= '최고운빨충의 주흔 환산 소모량 ' + addCommas(minconvst) + '개<br>';
+res+= '순수 주문의흔적 평균소모량 '+addCommas((totalst/100000).toFixed(1))+'개, ';
+res+= '이노센트 평균소모량 ' + ((totalinno/100000).toFixed(1)) + '개, ';
+res+= '순백 평균소모량 ' + ((totalwhite/100000).toFixed(1)) + '개.<br><br>';
+	res+= '<button type="button" class="btn btn-dark btn-lg" onclick="retst()">돌아가기</button> ';
+	res+= '<button type="button" class="btn btn-dark btn-lg" onclick="spelltrace()">같은 설정으로 다시 강화&통계 재설정</button> ';
+	res+= '<button type="button" class="btn btn-dark btn-lg" onclick="getlog()">강화 로그 보기</button><br>';
+	document.getElementById("resinside").innerHTML = res;
+	document.getElementById("loginside").innerHTML = logs;
+
+	var trace = {
+	 x: spentconvstlist,
+	 opacity: 0.75,
+	 type: 'histogram',
+	 marker: {
+		color: "rgba(80, 80, 80, 0.7)",
+		},
+	};
+	var layout = {
+		title: '동일한 강화를 한 100000개 아이템의 환산 주문의 흔적 소모량 통계',
+	 bargap: 0.05,
+	 bargroupgap: 0.2
+	};
+	var data = [trace];
+	document.getElementById("restab").click();
+	Plotly.newPlot('myDiv',data, layout);
+
+}//함수전체
 
 function showsftable(){
 	var lev = document.sftbl.sftlev.value;
