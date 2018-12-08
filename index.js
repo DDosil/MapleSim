@@ -16,7 +16,7 @@ var sfdestP = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 var sfdestP01 = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	-1,-1,-1,-1,-1, -1,-1,0.03,0.04,0.04,
 	0.1, 0.1, 0.2, 0.3, 0.4];
-//2번파방옵션, 1516만 파방
+//2번파방옵션, 151617만파방
 var sfdestP02 = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	-1,-1,0.01,0.02,0.02, -1,-1,0.03,0.04,0.04,
 	0.1, 0.1, 0.2, 0.3, 0.4];
@@ -38,20 +38,21 @@ var sfdestP02 = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 				break;
 			}
 	}
-	//각 시도시의 메소소모량함수
-	function spendmeso(mystar,itemlev,events,prot,mvps,pc){
+
+
+	//각 시도시의 메소소모량 테이블 생성함수
+	function spendmesolst(itemlev,events,prot,mvps,pc){
 		var basecost=0;
 		var basesale=0;
 		var totalcost=0;
+		var mesolist=[];
 
-		basecost = basemeso(mystar,itemlev);
-		basesale = 1-mvps-pc;//기본할인율
-		if(events==2){//30%할인이벤트면
-			basesale = basesale*0.7;//곱적용 할인
-		}
-
-
-
+		for(var mystar=0;mystar<25;mystar++){
+			basecost = basemeso(mystar,itemlev);
+			basesale = 1-mvps-pc;//기본할인율
+			if(events==2){//30%할인이벤트면
+				basesale = basesale*0.7;//곱적용 할인
+			}
 		if(prot==1 && mystar>11 && mystar<17){//올파방
 			basesale++;//100% 가격 추가
 			if(events==3 && mystar==15){//5 10 15성 이벤트때는
@@ -62,8 +63,14 @@ var sfdestP02 = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 		}else if(events==3 && prot==2 && mystar==16){
 			basesale++;
 		}
+		mesolist.push(basesale*basecost);
+		}
+		return mesolist;
+	}
 
-		return basesale*basecost;
+	//테이블에 입력한 값 출력
+	function spendmeso(mystar,sfmesolist){
+		return sfmesolist[mystar];
 	}
 
 	function basemeso(mystar,itemlev){
@@ -106,6 +113,7 @@ function starforce(){
 	var straight=0;
 	var res ='';
 	var logs = '<button type="button" class="btn btn-dark btn-lg" onclick="getres()">돌아가기</button><br>';
+	var sfmesolist = [];
 
 	if(targetStar<myStar){
 		alert('별을 깎고싶다면 지금 게임을 켜서 누르는게 좋지 않을까요?');
@@ -119,6 +127,8 @@ function starforce(){
 		alert('모지? 돈을 만들고 싶은건가?ㅋㅋ');
 		return 0;
 	}
+//스타포스 비용표 만들기
+	sfmesolist = spendmesolst(itemlev,events,prot,mvps,pc);
  for(var i=0;i<itemcount;i++){
 	 spentmeso = 0;
 	 myStar = parseInt(document.sf.startstar.value);
@@ -127,35 +137,35 @@ function starforce(){
 	while(myStar<targetStar){//목표 스타포스보다 적으면 반복
 		if(chancetime==2){//찬스타임이면
 			if(nologs.checked!=true){
-			logs+= (myStar) + '→' + (myStar+1) + ' 강화 성공(찬스타임), ' + spendmeso(myStar,itemlev,events,prot,mvps,pc) +'메소 소모<br>';
+			logs+= (myStar) + '→' + (myStar+1) + ' 강화 성공(찬스타임), ' + spendmeso(myStar,sfmesolist) +'메소 소모<br>';
 		}
-			spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
+			spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 			myStar++;//별하나추가
 			chancetime=0;//찬스타임 플래그 초기화
 			straight++;
 		}else if(events==3 && myStar<16 && myStar%5==0){//5,10,15성 이벤
 			if(nologs.checked!=true){
-			logs+= (myStar) + '→' + (myStar+1) + ' 강화 성공(5,10,15성 이벤트), ' + spendmeso(myStar,itemlev,events,prot,mvps,pc) +'메소 소모<br>';
+			logs+= (myStar) + '→' + (myStar+1) + ' 강화 성공(5,10,15성 이벤트), ' + spendmeso(myStar,sfmesolist) +'메소 소모<br>';
 		}
-			spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
+			spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 			myStar++;//별하나추가
 			chancetime=0;//찬스타임 플래그 초기화
 			straight++;
 		}else{
 			if(Math.random()<sfsuccP[myStar] + catchplus){//성공시
 				if(nologs.checked!=true){
-				logs+= (myStar) + '→' + (myStar+1) + ' 강화 성공, ' + spendmeso(myStar,itemlev,events,prot,mvps,pc) +'메소 소모<br>';
+				logs+= (myStar) + '→' + (myStar+1) + ' 강화 성공, ' + spendmeso(myStar,sfmesolist) +'메소 소모<br>';
 			}
-				spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
+				spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 				myStar++;//별하나 더함
 				chancetime=0;//찬스타임 플래그 초기화
 				straight++;
 			}else {//성공 못할시
 				if(Math.random()<seldest(prot)[myStar]){//파괴될시
 					if(nologs.checked!=true){
-					logs+= '<span style="color:red">'+(myStar) + '→12 강화 실패(파괴), ' + spendmeso(myStar,itemlev,events,prot,mvps,pc) +'메소 소모</span><br>';
+					logs+= '<span style="color:red">'+(myStar) + '→12 강화 실패(파괴), ' + spendmeso(myStar,sfmesolist) +'메소 소모</span><br>';
 				}
-					spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
+					spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 					spentmeso+=itemcost;//파괴시 아이템 원가 추가
 					myStar = 12;//12성으로 돌아감
 					chancetime=0;//찬스타임 플래그 초기화
@@ -165,15 +175,15 @@ function starforce(){
 					if(myStar<6 || myStar%5==0){//5의 배수이거나 5성 아래일시
 						//별 유지
 						if(nologs.checked!=true){
-						logs+= (myStar) + '→' + (myStar) + ' 강화 실패(유지), ' + spendmeso(myStar,itemlev,events,prot,mvps,pc) +'메소 소모<br>';
+						logs+= (myStar) + '→' + (myStar) + ' 강화 실패(유지), ' + spendmeso(myStar,sfmesolist) +'메소 소모<br>';
 					}
-						spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
+						spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 						straight=-1;
 					}else{//그게 아닐시
 						if(nologs.checked!=true){
-						logs+= (myStar) + '→' + (myStar-1) + ' 강화 실패(하락), ' + spendmeso(myStar,itemlev,events,prot,mvps,pc) +'메소 소모<br>';
+						logs+= (myStar) + '→' + (myStar-1) + ' 강화 실패(하락), ' + spendmeso(myStar,sfmesolist) +'메소 소모<br>';
 					}
-						spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
+						spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 						myStar--;//별 하락
 						chancetime++;//찬스타임 플래그 +1
 						straight=-1;
@@ -217,27 +227,27 @@ logs+= '<button type="button" class="btn btn-dark btn-lg" onclick="getres()">돌
 
 
 var allspentmeso = 0;
-	for(var i=0;i<25000;i++){
+	for(var i=0;i<100000;i++){
 		spentmeso = 0;
 		myStar = parseInt(document.sf.startstar.value);
 
 	 while(myStar<targetStar){//목표 스타포스보다 적으면 반복
 		 if(chancetime==2){//찬스타임이면
-			 spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
+			 spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 			 myStar++;//별하나추가
 			 chancetime=0;//찬스타임 플래그 초기화
 		 }else if(events==3 && myStar<16 && myStar%5==0){//5,10,15성 이벤
-			 spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
+			 spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 			 myStar++;//별하나추가
 			 chancetime=0;//찬스타임 플래그 초기화
 		 }else{
 			 if(Math.random()<sfsuccP[myStar] + catchplus){//성공시
-				 spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
+				 spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 				 myStar++;//별하나 더함
 				 chancetime=0;//찬스타임 플래그 초기화
 			 }else {//성공 못할시
 				 if(Math.random()<seldest(prot)[myStar]){//파괴될시
-					 spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
+					 spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 					 spentmeso+=itemcost;//파괴시 아이템 원가 추가
 					 myStar = 12;//12성으로 돌아감
 					 chancetime=0;//찬스타임 플래그 초기화
@@ -245,9 +255,9 @@ var allspentmeso = 0;
 				 }else{//파괴안된 보통 실패시
 					 if(myStar<6 || myStar%5==0){//5의 배수이거나 5성 아래일시
 						 //별 유지
-						 spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
+						 spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 					 }else{//그게 아닐시
-						 spentmeso+=spendmeso(myStar,itemlev,events,prot,mvps,pc);//메소소모함
+						 spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 						 myStar--;//별 하락
 						 chancetime++;//찬스타임 플래그 +1
 					 }
@@ -261,14 +271,14 @@ var allspentmeso = 0;
  		if(spentmeso<minmeso){minmeso = spentmeso}
 	}
 	var rankcount=0;
-	for(var i=0;i<25000;i++){
+	for(var i=0;i<100000;i++){
 		if(spentmesolist[i]<(totalspentmeso/itemcount)){
 			rankcount++;
 		}
 	}
 
-	var rankperc = (rankcount/25000*100);
-	var avrmeso = Math.round(allspentmeso/25000);
+	var rankperc = (rankcount/100000*100);
+	var avrmeso = Math.round(allspentmeso/100000);
 	res+= '상위 ' + rankperc.toFixed(3) +'%의 운입니다(당신보다 돈을 많이 쓴 사람이 ' +(100-rankperc).toFixed(3)+'%입니다.).<br>'
 	res+= '전체 평균 메소 소모액은 ' + addCommas(avrmeso) + ' 메소 (약 ' +eokcut(avrmeso)+ ')입니다.<br>'
 	res+= '최고흑우의 메소 소모량 ' + addCommas(maxmeso) + ' 메소 (약 ' +eokcut(maxmeso)+ ')<br>';
@@ -288,7 +298,7 @@ var allspentmeso = 0;
     },
 	};
 	var layout = {
-		title: '25000개 아이템의 ' + document.sf.lev.value + '제 ' +parseInt(document.sf.startstar.value) + "→" + parseInt(document.sf.endstar.value) + "성까지 소모 메소 통계",
+		title: '100000개 아이템의 ' + document.sf.lev.value + '제 ' +parseInt(document.sf.startstar.value) + "→" + parseInt(document.sf.endstar.value) + "성까지 소모 메소 통계",
 	 bargap: 0.05,
 	 bargroupgap: 0.2
 	};
