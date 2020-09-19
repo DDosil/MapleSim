@@ -332,8 +332,8 @@ function eokcut(num){
 	var x = Math.round(num/10000000);
 	var y = "";
 	console.log(v, " ", w, " ", x);
-	x=x-(w*10000);
-	w=w-(v*1000);
+	x=x-(w*100000);
+	w=w-(v*10000);
 	console.log(v, " ", w, " ", x);
 	if(v>0){y+= (parseInt(v).toString()) + '경 ';}
 	if(w>0){y+= (parseInt(w).toString()) + '조 ';}
