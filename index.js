@@ -234,9 +234,7 @@ logs+= '<button type="button" class="btn btn-dark btn-lg" onclick="getres()">돌
 
 
 var allspentmeso = 0;
-var kkkk=100000;
-	if(targetStar==25){kkkk=1000;}else{kkkk=100000;}
-	for(var i=0;i<kkkk;i++){
+	for(var i=0;i<100000;i++){
 		spentmeso = 0;
 		myStar = parseInt(document.sf.startstar.value);
 
