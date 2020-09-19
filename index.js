@@ -101,6 +101,8 @@ function starforce(){
 	var chancetime = 0;//찬스타임 플래그
 	var cr=0;//파괴횟수
 	var mytry=0;//시도횟수
+	var accprop=0;//실제 적용확률
+	var catchprop = $(":input:radio[name=catchpr]:checked").val();//스타캐치 곱/합적용
 	var events = $(":input:radio[name=events]:checked").val();//이벤트
 	var prot = $(":input:radio[name=prot]:checked").val();//파괴방지
 	var mvps = $(":input:radio[name=mvps]:checked").val();//mvp할인
@@ -152,7 +154,12 @@ function starforce(){
 			chancetime=0;//찬스타임 플래그 초기화
 			straight++;
 		}else{
-			if(Math.random()<sfsuccP[myStar] + catchplus){//성공시
+			if(catchprop==1){//스타캐치 곱적용
+				accprop = sfsuccP[myStar] * (catchplus + 1);
+			}else{//합적용
+				accprop = sfsuccP[myStar] + catchplus;
+			}
+			if(Math.random()<accprop){//성공시
 				if(nologs.checked!=true){
 				logs+= (myStar) + '→' + (myStar+1) + ' 강화 성공, ' + spendmeso(myStar,sfmesolist) +'메소 소모<br>';
 			}
