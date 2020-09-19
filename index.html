@@ -113,7 +113,7 @@ e﻿<!DOCTYPE html>
       </div>
       <div class="form-group">
         <label for="sfcatch">스타캐치 확률증가량(%p단위, 해제: 0)</label>
-        <input type="number" class="form-control" id="sfcatch" name="sfcatch" autocomplete="off" onkeyup="" value="4.5">
+        <input type="number" class="form-control" id="sfcatch" name="sfcatch" autocomplete="off" onkeyup="" value="5">
       </div>
       <div class="form-group">
         <label for="itemcost">파괴시 복구비용(아이템 원가)</label>
@@ -131,6 +131,15 @@ e﻿<!DOCTYPE html>
       <label for="itemcount">몇 개 만들까?</label>
       <input type="number" class="form-control" id="itemcount" name="itemcount" autocomplete="off" value="1">
     </div>
+	<div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-dark active">
+        <input type ="radio" id="sfcp01" name="catchpr" value=1 checked="checked">스타캐치 곱적용
+      </label>
+      <label class="btn btn-dark">
+      <input type ="radio" id="sfcp02" name="catchpr" value=2>스타캐치 합적용
+      </label>
+    </div>
+    <br>
     <div class="btn-group" data-toggle="buttons">
       <label class="btn btn-dark active">
         <input type ="radio" id="sfev01" name="events" value=1 checked="checked">상특)이벤트는 무시함
