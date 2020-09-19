@@ -333,8 +333,8 @@ function eokcut(num){
 	var y = "";
 	w=w-v;
 	x=x-v-w;
-	if(v>9){y+= (parseInt(v/10).toString()) + '경 '; w=w-v; x=x-v;}
-	if(w>9){y+= (parseInt(w/10).toString()) + '조 '; x=x-w;}
+	if(v>9){y+= (parseInt(v/10).toString()) + '경 ';}
+	if(w>9){y+= (parseInt(w/10).toString()) + '조 ';}
 	if(x>9){y+= (parseInt(x/10).toString()) + '억 ';}
 	if(x%10!=0){y += (x%10).toString() +'천만 ';}
 	y+= '메소';
