@@ -31,7 +31,7 @@
           <li><a href="#sfsimresult" id="restab">자동강화 결과</a></li>
           <li><a href="#sflogs" id="logtab">강화로그</a></li>
           <li><a href="#sfcosttable">스타포스 비용표</a></li>
-          <li><a href="#sfprobtable" onclick="sfprobtable()">스타포스 확률표</a></li>
+          <li><a href="#sfprobtable">스타포스 확률표</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -97,6 +97,7 @@
 			<p>2020.09.20 - 모멘텀 패치 스타포스 확률 변경이 반영되었습니다.<br>
 			스타캐치 곱적용/합적용 선택 기능이 추가되었습니다.<br>
 			자릿수 표기 오류를 수정했습니다.</p><br>
+      <p>2021.02.19 - <a href="https://maplestory.nexon.com/News/Notice/Notice/133192">넥슨 공식 발표</a>에 따라 스타캐치 기준 스타포스 확률표를 추가했습니다.</p><br>
 	    
       <p><br><br><br><br><br><br>
     </p>
@@ -298,7 +299,7 @@
         <div class="tab_item" id="sfcosttable">
           <div class="container">
             <form name = "sftbl">
-            <input type "number" class="form-control" autocomplete="off"
+            <input type="number" class="form-control" autocomplete="off"
             id="sftlev" name="sftlev" onkeyup="showsftable()" placeholder="레벨을 입력하시면 표가 나옵니다(100레벨 이상)">
             </form>
             <div id="showsftable">
@@ -308,6 +309,12 @@
 
         <div class="tab_item" id="sfprobtable">
           <div class="container">
+              <form name="stfprob">
+                <button type="button" class="btn btn-dark btn-lg" onclick="sfprobtable()">스타캐치 미적용
+                </button>
+                <button type="button" class="btn btn-dark btn-lg" onclick="sfprobtable_catch()">스타캐치 적용
+                </button>
+              </form>
               <div id="protinside">
               </div>
             </div>

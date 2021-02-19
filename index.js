@@ -803,3 +803,36 @@ function sfprobtable(){
 	tblcontent+='</tbody></table>';
 	document.getElementById("protinside").innerHTML = tblcontent;
 }
+
+var probtable_catch =[
+	["99.75%","94.50%","89.25%","89.25%","84.00%","78.75%","73.50%","68.25%","63.00%","57.75%",
+"52.50%","47.25%","42.00%","36.75%","31.50%","31.50%","31.50%","31.50%","31.50%","31.50%",
+"31.50%","31.50%","3.15%","2.10%","1.05%"],
+["0.25%","5.50%","10.75%","10.75%","16.00%","21.25%","26.50%","31.75%","37.00%","42.25%",
+"47.50%","","","","","66.45%","","","","",
+"61.65%","","","",""],
+["","","","","","","","","","",
+"","52.75%","57.42%","61.99%","67.13%","","66.45%","66.45%","65.76%","65.76%",
+"","61.65%","77.48%","68.53%","59.37%"],
+["","","","","","","","","","",
+"","","0.58%","1.27%","1.37%","2.06%","2.06%","2.06%","2.74%","2.74%",
+"6.85%","6.85%","19.37%","29.37%","39.58%"]];
+
+function sfprobtable_catch(){
+	var tblcontent = '<table class="table">	<thead><tr>';
+	var j;
+	tblcontent+= '<th scope="col">*</th><th scope="col">성공</th><th scope="col">유지</th>';
+	tblcontent+= '<th scope="col">실패</th><th scope="col">파괴</th></tr></thead><tbody>';
+	for(var i=0;i<25;i++){
+		j=i+1;
+		tblcontent+='<tr>';
+		tblcontent+='<th scope="row">' + i + '→' + j + '</th>';
+		tblcontent+='<td>' + probtable_catch[0][i] + '</td>';
+		tblcontent+='<td>' + probtable_catch[1][i] + '</td>';
+		tblcontent+='<td>' + probtable_catch[2][i] + '</td>';
+		tblcontent+='<td>' + probtable_catch[3][i] + '</td>';
+		tblcontent+='</tr>';
+	}
+	tblcontent+='</tbody></table>';
+	document.getElementById("protinside").innerHTML = tblcontent;
+}
