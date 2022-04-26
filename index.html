@@ -77,8 +77,9 @@
     <button type="button" class="btn btn-dark btn-lg" onclick="retst()">하러가기</button>
     <h2  class="page-header">수동강화기란?</h2>
 		<p>인게임처럼 한 땀 한 땀 열심히 강화를 합니다.<br>
-    강화는 하고싶은데 메소가 없을 때, 혹은 강화가 너무 하고싶어서 현실을 깨달아야 할 때 쓰면 좋습니다.<br></p>
-    <button type="button" class="btn btn-dark btn-lg" onclick="">지금은 준비중입니다. </button>
+    강화는 하고싶은데 메소가 없을 때, 혹은 강화가 너무 하고싶어서 현실을 깨달아야 할 때 쓰면 좋습니다.<br>
+    존버하다보니 다른분이 만들어 주셨습니다.<br></p>
+    <a href=https://maple.gazua.in/starforce target='_blank'><button type="button" class="btn btn-dark btn-lg" onclick="">하러가기(제꺼 아님)</button></a>
     <h4 class="page-header">주흔 작을 하는 기준</h4>
       <p>총 작횟수*확률로 기대 강화값을 구한 후, 각 업그레이드 시마다 최종 기대값을 판별하여<br>
   그 기대값이 처음에 구한 기대값에서 1을 뺀 값 미만일 시 이노로 밀어버리고 재시작합니다.<br>
@@ -91,14 +92,21 @@
 좀 더 정확한 강화 전략을 찾는다면 <a href="http://gall.dcinside.com/board/view?id=maplestory&no=5469308" target="_blank">여기</a>를 참조하시면 좋습니다.</p>
 
     <h2  class="page-header">건의 및 버그제보</h2>
-    <p><a href="http://gall.dcinside.com/mgallery/board/lists?id=danpoong" target="_blank">단풍 마이너 갤러리</a>에 적어주시면 자주 봅니다.(메접하면 안봐요)<br></p>
-			
+    <p>그런거 없음</p>
+
 	<h2 class="page-header">최근 변경점</h2>
+      <p>2022.04.27 - 아이템 파괴 시 복구 비용이 반영되지 않던 점이 수정되었습니다.<br>
+      스트레이트가 아닌 결과에서도 스트레이트로 표기되던 점이 수정되었습니다.<br>
+      스타캐치 시 확률 증가가 일괄 곱적용으로 변경되었습니다.<br>
+      전체 통계자료(평균값) 계산시 스타캐치 정보가 제대로 반영되지 않던 부분이 수정되었습니다.<br>
+      샤이닝 스타포스 이벤트 정보가 추가되었습니다.<br>
+      <br>
+      <p>2021.02.19 - <a href="https://maplestory.nexon.com/News/Notice/Notice/133192">넥슨 공식 발표</a>에 따라 스타캐치 기준 스타포스 확률표를 추가했습니다.</p><br>
+      <br>
 			<p>2020.09.20 - 모멘텀 패치 스타포스 확률 변경이 반영되었습니다.<br>
 			스타캐치 곱적용/합적용 선택 기능이 추가되었습니다.<br>
 			자릿수 표기 오류를 수정했습니다.</p><br>
-      <p>2021.02.19 - <a href="https://maplestory.nexon.com/News/Notice/Notice/133192">넥슨 공식 발표</a>에 따라 스타캐치 기준 스타포스 확률표를 추가했습니다.</p><br>
-	    
+
       <p><br><br><br><br><br><br>
     </p>
     </div>
@@ -115,13 +123,14 @@
         <input type="number" class="form-control" id="lev" name="lev" autocomplete="off" onkeyup="" value="150">
       </div>
       <div class="form-group">
-        <label for="sfcatch">스타캐치 확률증가량(%p단위, 해제: 0)</label>
-        <input type="number" class="form-control" id="sfcatch" name="sfcatch" autocomplete="off" onkeyup="" value="5">
+        <label for="itemcost">파괴시 복구비용(노작템 원가)
+          <div id="repairprice">
+          </div>
+        </label>
+        <input type="number" class="form-control" id="itemcost" name="itemcost" autocomplete="off" onkeyup="repairprice()" value="0">
+
       </div>
-      <div class="form-group">
-        <label for="itemcost">파괴시 복구비용(아이템 원가)</label>
-        <input type="number" class="form-control" id="itemcost" name="itemcost" autocomplete="off" onkeyup="" value="0">
-      </div>
+
     <div class="form-group">
       <label for="startstar">시작 별 갯수</label>
       <input type="number" class="form-control" id="startstar" name="startstar" autocomplete="off" value=0>
@@ -136,11 +145,12 @@
     </div>
 	<div class="btn-group" data-toggle="buttons">
       <label class="btn btn-dark active">
-        <input type ="radio" id="sfcp01" name="catchpr" value=1 checked="checked">스타캐치 곱적용
+        <input type ="radio" id="sfcp02" name="catchpr" value=0 checked="checked">상특)스타캐치 안함
       </label>
       <label class="btn btn-dark">
-      <input type ="radio" id="sfcp02" name="catchpr" value=2>스타캐치 합적용
+        <input type ="radio" id="sfcp01" name="catchpr" value=5>이악물고 스타캐치 아득바득 누르기
       </label>
+
     </div>
     <br>
     <div class="btn-group" data-toggle="buttons">
@@ -152,6 +162,9 @@
       </label>
       <label class="btn btn-dark">
       <input type ="radio" id="sfev03" name="events" value=3>5,10,15성 100%
+      </label>
+      <label class="btn btn-dark">
+      <input type ="radio" id="sfev04" name="events" value=4>★샤이닝 스타포스★
       </label>
     </div>
     <br>

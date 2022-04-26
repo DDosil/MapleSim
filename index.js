@@ -50,17 +50,17 @@ var sfdestP02 = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 		for(var mystar=0;mystar<25;mystar++){
 			basecost = basemeso(mystar,itemlev);
 			basesale = 1-mvps-pc;//기본할인율
-			if(events==2){//30%할인이벤트면
+			if(events==2 || events==4){//30%할인 혹은 샤타포스 이벤트면
 				basesale = basesale*0.7;//곱적용 할인
 			}
 		if(prot==1 && mystar>11 && mystar<17){//올파방
 			basesale++;//100% 가격 추가
-			if(events==3 && mystar==15){//5 10 15성 이벤트때는
+			if((events==3||events==4) && mystar==15){//5 10 15성 이벤트때는
 				basesale--;//15성은 가격추가 안됨
 			}
-		}else if(events!=3 && prot==2 && mystar>14 && mystar<17){//151617파방
+		}else if((events!=3||events!=4) && prot==2 && mystar>14 && mystar<17){//151617파방
 			basesale++;//100% 가격 추가
-		}else if(events==3 && prot==2 && mystar==16){
+		}else if((events==3||events==4) && prot==2 && mystar==16){
 			basesale++;
 		}
 		mesolist.push(basesale*basecost);
@@ -92,8 +92,8 @@ var sfdestP02 = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 
 function starforce(){
 	var itemlev = document.sf.lev.value;//아이템레벨
-	var catchplus = document.sf.sfcatch.value * 0.01;//스타캐치 확률증가
-	var itemcost = parseInt(document.sf.startstar.value);//아이템원가
+	var catchplus = $(":input:radio[name=catchpr]:checked").val() * 0.01;//스타캐치 확률증가량.
+	var itemcost = parseInt(document.sf.itemcost.value);//아이템원가
 	var myStar = parseInt(document.sf.startstar.value);//시작스타포스
 	var targetStar = parseInt(document.sf.endstar.value);//타겟스타포스
 	var itemcount = document.sf.itemcount.value;//몇 개 만드나?
@@ -102,7 +102,7 @@ function starforce(){
 	var cr=0;//파괴횟수
 	var mytry=0;//시도횟수
 	var accprop=0;//실제 적용확률
-	var catchprop = $(":input:radio[name=catchpr]:checked").val();//스타캐치 곱/합적용
+	var catchprop = 1;//스타캐치 곱/합적용, 1일시 곱 2일시 합, 확률공개로 1로 고정
 	var events = $(":input:radio[name=events]:checked").val();//이벤트
 	var prot = $(":input:radio[name=prot]:checked").val();//파괴방지
 	var mvps = $(":input:radio[name=mvps]:checked").val();//mvp할인
@@ -112,7 +112,7 @@ function starforce(){
 	var totalspentmeso = 0;
 	var maxmeso=0;
 	var minmeso=100000000000000;
-	var straight=0;
+	var straight=0;//실패횟수체크
 	var res ='';
 	var logs = '<button type="button" class="btn btn-dark btn-lg" onclick="getres()">돌아가기</button><br>';
 	var sfmesolist = [];
@@ -134,7 +134,7 @@ function starforce(){
  for(var i=0;i<itemcount;i++){
 	 spentmeso = 0;
 	 myStar = parseInt(document.sf.startstar.value);
-	 straight=0;
+	 straight = 0
 
 	while(myStar<targetStar){//목표 스타포스보다 적으면 반복
 		if(chancetime==2){//찬스타임이면
@@ -144,7 +144,6 @@ function starforce(){
 			spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 			myStar++;//별하나추가
 			chancetime=0;//찬스타임 플래그 초기화
-			straight++;
 		}else if(events==3 && myStar<16 && myStar%5==0){//5,10,15성 이벤
 			if(nologs.checked!=true){
 			logs+= (myStar) + '→' + (myStar+1) + ' 강화 성공(5,10,15성 이벤트), ' + spendmeso(myStar,sfmesolist) +'메소 소모<br>';
@@ -152,7 +151,13 @@ function starforce(){
 			spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 			myStar++;//별하나추가
 			chancetime=0;//찬스타임 플래그 초기화
-			straight++;
+		}else if(events==4 && myStar<16 && myStar%5==0){//샤타포스 이벤
+			if(nologs.checked!=true){
+			logs+= (myStar) + '→' + (myStar+1) + ' 강화 성공(샤이닝 스타포스 5,10,15성), ' + spendmeso(myStar,sfmesolist) +'메소 소모<br>';
+		}
+			spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
+			myStar++;//별하나추가
+			chancetime=0;//찬스타임 플래그 초기화
 		}else{
 			if(catchprop==1){//스타캐치 곱적용
 				accprop = sfsuccP[myStar] * (catchplus + 1);
@@ -166,18 +171,20 @@ function starforce(){
 				spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 				myStar++;//별하나 더함
 				chancetime=0;//찬스타임 플래그 초기화
-				straight++;
 			}else {//성공 못할시
 				if(Math.random()<seldest(prot)[myStar]){//파괴될시
 					if(nologs.checked!=true){
 					logs+= '<span style="color:red">'+(myStar) + '→12 강화 실패(파괴), ' + spendmeso(myStar,sfmesolist) +'메소 소모</span><br>';
 				}
 					spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
+					if(nologs.checked!=true){
+					logs+= itemcost + '메소로 흔적 살림<br>';
+				}
 					spentmeso+=itemcost;//파괴시 아이템 원가 추가
 					myStar = 12;//12성으로 돌아감
 					chancetime=0;//찬스타임 플래그 초기화
 					cr++;//파괴횟수 추가
-					straight=-1;
+					straight++;
 				}else{//파괴안된 보통 실패시
 					if(myStar<11 || myStar%5==0){//5의 배수이거나 5성 아래일시
 						//별 유지
@@ -185,7 +192,7 @@ function starforce(){
 						logs+= (myStar) + '→' + (myStar) + ' 강화 실패(유지), ' + spendmeso(myStar,sfmesolist) +'메소 소모<br>';
 					}
 						spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
-						straight=-1;
+						straight++;
 					}else{//그게 아닐시
 						if(nologs.checked!=true){
 						logs+= (myStar) + '→' + (myStar-1) + ' 강화 실패(하락), ' + spendmeso(myStar,sfmesolist) +'메소 소모<br>';
@@ -193,7 +200,7 @@ function starforce(){
 						spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 						myStar--;//별 하락
 						chancetime++;//찬스타임 플래그 +1
-						straight=-1;
+						straight++;
 
 					}
 				}
@@ -207,7 +214,7 @@ function starforce(){
 	totalspentmeso +=spentmeso;
 	if(spentmeso>maxmeso){maxmeso = spentmeso;}
 	if(spentmeso<minmeso){minmeso = spentmeso;}
-	if(straight == parseInt(document.sf.endstar.value)-parseInt(document.sf.startstar.value)){
+	if(straight==0){
  	 res+= '와우! 스트레이트!<br>';
  	 res+= '<img src=icon_20.png><br>';
   }
@@ -243,12 +250,13 @@ var allspentmeso = 0;
 			 spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 			 myStar++;//별하나추가
 			 chancetime=0;//찬스타임 플래그 초기화
-		 }else if(events==3 && myStar<16 && myStar%5==0){//5,10,15성 이벤
+		 }else if((events==3||events==4) && myStar<16 && myStar%5==0){//5,10,15성 이벤
 			 spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 			 myStar++;//별하나추가
 			 chancetime=0;//찬스타임 플래그 초기화
 		 }else{
-			 if(Math.random()<sfsuccP[myStar] + catchplus){//성공시
+			 accprop = sfsuccP[myStar] * (catchplus + 1);
+			 if(Math.random()<accprop){//성공시
 				 spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 				 myStar++;//별하나 더함
 				 chancetime=0;//찬스타임 플래그 초기화
@@ -260,7 +268,7 @@ var allspentmeso = 0;
 					 chancetime=0;//찬스타임 플래그 초기화
 					 cr++;//파괴횟수 추가
 				 }else{//파괴안된 보통 실패시
-					 if(myStar<6 || myStar%5==0){//5의 배수이거나 5성 아래일시
+					 if(myStar<11 || myStar%5==0){//5의 배수이거나 10성 아래일시
 						 //별 유지
 						 spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 					 }else{//그게 아닐시
@@ -367,7 +375,7 @@ function spelltrace(){
 	var minconvst = 1000000000000000;
 	var whitecount = 0;
 	var innocount = 0;
-	var straight=0;
+	var straight=0; //실패횟수체크
 	var notfit = 0;
 	var upprob = 0;
 	var myup=0;//현재강화
@@ -452,7 +460,6 @@ function spelltrace(){
 				myup++;
 				restup--;
 				spentst+=stcost;
-				straight++;
 				if(nologs.checked!=true){
 				logs+='성공 ';
 			}
@@ -465,7 +472,7 @@ function spelltrace(){
 				}else{
 					spentst+=stcost;
 					restup--;
-					straight=-10;
+					straight++;
 					if(nologs.checked!=true){
 					logs+='실패 ';
 
@@ -504,7 +511,7 @@ function spelltrace(){
 						}
 						}else{
 							gh=1;
-							straight=-50;
+							straight++;
 							if(nologs.checked!=true){
 							logs+='<br>황금망치 실패';
 						}
@@ -553,7 +560,7 @@ function spelltrace(){
 	if(spentconvst>maxconvst){maxconvst =  spentconvst;}
 	if(spentconvst<minconvst){minconvst = spentconvst;}
 
-	if(straight==upg){
+	if(straight==0){
 		res+= '와우! 스트레이트!<br>';
   	res+= '<img src=icon_20.png><br>';
 	}
@@ -590,7 +597,6 @@ for(var i=0;i<100000;i++){
 	myup=0;
 	gh=0;
 	restup=upg-1;
-	straight=0;
 	spentconvst=0;
 	while(myup<upg){//작 다할때까지
 
@@ -629,7 +635,6 @@ for(var i=0;i<100000;i++){
 			myup++;
 			restup--;
 			spentst+=stcost;
-			straight++;
 
 		}else{//실패
 			if(Math.random()<stprot){
@@ -638,7 +643,6 @@ for(var i=0;i<100000;i++){
 			}else{
 				spentst+=stcost;
 				restup--;
-			straight=-10;
 			}
 		}
 		if(restup==0){
@@ -669,7 +673,6 @@ for(var i=0;i<100000;i++){
 
 					}else{
 						gh=1;
-						straight=-50;
 
 					}
 				}else{//100퍼황망
@@ -803,6 +806,26 @@ function sfprobtable(){
 	tblcontent+='</tbody></table>';
 	document.getElementById("protinside").innerHTML = tblcontent;
 }
+
+function repairprice(){
+	var price = parseInt(document.sf.itemcost.value);
+	var tblcontent = '';
+	tblcontent += ' : ';
+	if(isNaN(price)){
+		price = 0;
+	}
+	if(price>=100000000000){
+		tblcontent += '풀메이상(이런거좀강화하지마라)';
+	}else if(price>=100000000){
+		tblcontent += parseInt(Math.floor(price/100000000)).toString() + '억 메소';
+	}else if(price>=10000){
+		tblcontent += parseInt(Math.floor(price/10000)).toString() + '만 메소';
+	}else{
+		tblcontent += parseInt(Math.floor(price)).toString() + ' 메소';
+	}
+		document.getElementById("repairprice").innerHTML = tblcontent;
+}
+
 
 var probtable_catch =[
 	["99.75%","94.50%","89.25%","89.25%","84.00%","78.75%","73.50%","68.25%","63.00%","57.75%",
