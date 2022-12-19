@@ -3,15 +3,27 @@
 			$(this).parent().addClass("active");
 		});
 
+/*세이비어 이후 '세이비어'로 검색해서 강조된부분 수정해주기*/
+
 //스타포스 성공확률 테이블
 var sfsuccP = [0.95, 0.90, 0.85, 0.85, 0.80, 0.75, 0.70, 0.65, 0.60, 0.55,
 	0.50, 0.45, 0.40, 0.35, 0.30, 0.30, 0.30, 0.30, 0.30, 0.30,
 	0.30, 0.30, 0.03, 0.02, 0.01];
+
 //스타포스 파괴확률 테이블
 //실패확률과 곱해진 확률, 13렙에서 0.7%는 하락확률 70% 중 1%
 var sfdestP = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	-1,-1,0.01,0.02,0.02, 0.03,0.03,0.03,0.04,0.04,
 	0.1, 0.1, 0.2, 0.3, 0.4];
+
+/*세이비어 이후 여기수정
+//스타포스 파괴확률 테이블
+//실패확률과 곱해진 확률, 13렙에서 0.7%는 하락확률 70% 중 1%
+var sfdestP = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1, -1,-1,0.03,0.04,0.04,
+	0.1, 0.1, 0.2, 0.3, 0.4];
+*/
+
 //1번파방옵션, 올파방
 var sfdestP01 = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	-1,-1,-1,-1,-1, -1,-1,0.03,0.04,0.04,
@@ -79,10 +91,22 @@ var sfdestP02 = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 			basecost = 1000 + Math.pow(itemlev,3) * (mystar+1) / 25;
 		}else if(mystar<15){
 			basecost = 1000 + Math.pow(itemlev,3) * Math.pow(mystar+1,2.7) / 400;
+		/*세이비어 이후 여기수정
+		}else if(mystar==10){
+			basecost = 1000 + Math.pow(itemlev,3) * Math.pow(mystar+1,2.7) / 400;
+		}else if(mystar==11){
+			basecost = 1000 + Math.pow(itemlev,3) * Math.pow(mystar+1,2.7) / 220;
+		}else if(mystar==12){
+			basecost = 1000 + Math.pow(itemlev,3) * Math.pow(mystar+1,2.7) / 150;
+		}else if(mystar==13){
+			basecost = 1000 + Math.pow(itemlev,3) * Math.pow(mystar+1,2.7) / 110;
+		}else if(mystar==14){
+			basecost = 1000 + Math.pow(itemlev,3) * Math.pow(mystar+1,2.7) / 75;
+		*/
 		}else{
 			basecost = 1000 + Math.pow(itemlev,3) * Math.pow(mystar+1,2.7) / 200;
 		}//베이스강화비 산정
-		basecost = Math.ceil(basecost/100)*100;
+		basecost = Math.round(basecost/100)*100;
 		return basecost;
 	}
 	function addCommas(x) {
@@ -186,7 +210,9 @@ function starforce(){
 					cr++;//파괴횟수 추가
 					straight++;
 				}else{//파괴안된 보통 실패시
-					if(myStar<11 || myStar%5==0){//5의 배수이거나 5성 아래일시
+					if(myStar<11 || myStar%5==0){//5의 배수이거나 10성 아래일시
+					/*세이비어 이후 여기수정*/
+					/*if(myStar<16 || myStar%5==0){//5의 배수이거나 15성 아래일시*/
 						//별 유지
 						if(nologs.checked!=true){
 						logs+= (myStar) + '→' + (myStar) + ' 강화 실패(유지), ' + spendmeso(myStar,sfmesolist) +'메소 소모<br>';
@@ -269,6 +295,8 @@ var allspentmeso = 0;
 					 cr++;//파괴횟수 추가
 				 }else{//파괴안된 보통 실패시
 					 if(myStar<11 || myStar%5==0){//5의 배수이거나 10성 아래일시
+					/*세이비어 이후 여기수정*/
+					/*if(myStar<16 || myStar%5==0){//5의 배수이거나 15성 아래일시*/
 						 //별 유지
 						 spentmeso+=spendmeso(myStar,sfmesolist);//메소소모함
 					 }else{//그게 아닐시
